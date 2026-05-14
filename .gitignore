@@ -36,6 +36,8 @@ Download foler/
 *.mp4
 *.msix
 *.exe
+# ...but allow demo media intentionally checked in for the README:
+!docs/media/*.mp4
 
 # ---- Submission archives (uncomment to ignore) ----
 # *.zip
