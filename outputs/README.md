@@ -24,7 +24,7 @@ file. Re-run it any time after editing the samples.
 
 ## Viewing the HTMLs
 
-These are standalone HTML files — open them in any browser:
+These are standalone HTML files -- open them in any browser:
 
 ```powershell
 start outputs/adder4.html

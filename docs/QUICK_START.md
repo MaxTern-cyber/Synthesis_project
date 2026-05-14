@@ -6,17 +6,17 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 📊 Demo 2: DAG Visualizer (Port 8520)
+## Demo 2: DAG Visualizer (Port 8520)
 
 ### Enhanced Features:
 
 #### 1. **Timing-Aware Critical Path Analysis**
 - **Location**: Analysis tab
 - **What to show**:
-  - Critical paths now display delay in **nanoseconds**
-  - Each path shows: length, delay, start/end nodes
-  - Bottleneck identification (slow gates, high fanout points)
-  
+ - Critical paths now display delay in **nanoseconds**
+ - Each path shows: length, delay, start/end nodes
+ - Bottleneck identification (slow gates, high fanout points)
+ 
 **Demo Script**:
 ```
 1. Navigate to "Analysis" tab
@@ -28,16 +28,16 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 #### 2. **Buffer Insertion Suggestions**
 - **Location**: Signal Trace tab
 - **What to show**:
-  - Fanout health indicator (🟢🟡🟠🔴)
-  - Two buttons: "Trace Signal" + "Buffer Suggestions"
-  - Automatic buffer tree generation
-  
+ - Fanout health indicator ()
+ - Two buttons: "Trace Signal" + "Buffer Suggestions"
+ - Automatic buffer tree generation
+ 
 **Demo Script**:
 ```
 1. Go to "Signal Trace & Debug" tab
 2. Enter a high-fanout signal (try: "n_193" or "n_5")
-3. Click "🔍 Trace Signal" → See fanout health indicator
-4. Click "💡 Buffer Suggestions" → See optimization plan
+3. Click " Trace Signal" -> See fanout health indicator
+4. Click " Buffer Suggestions" -> See optimization plan
 5. Expand buffer details to show distribution
 ```
 
@@ -47,23 +47,23 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 🔬 Demo 3: Debug Assistant (Port 8610)
+## Demo 3: Debug Assistant (Port 8610)
 
 ### Enhanced Features:
 
 #### 1. **Detailed Fanout Analysis with Load Estimation**
 - **Location**: Fanout Analyzer tab
 - **What to show**:
-  - Health status with color coding
-  - Four metrics: Fanout, Total Load, Avg Load, Timing Penalty
-  - Reader details table with gate types and loads
-  - Load distribution chart
-  
+ - Health status with color coding
+ - Four metrics: Fanout, Total Load, Avg Load, Timing Penalty
+ - Reader details table with gate types and loads
+ - Load distribution chart
+ 
 **Demo Script**:
 ```
 1. Navigate to "Fanout Analyzer" tab
 2. Enter signal name (try searching in Connectivity Report first)
-3. Click "🔬 Detailed Analysis"
+3. Click " Detailed Analysis"
 4. Point out the health indicator
 5. Show the four metrics dashboard
 6. Scroll to reader details table
@@ -73,16 +73,16 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 #### 2. **Fanout Optimization Suggestions**
 - **Location**: Same tab, second button
 - **What to show**:
-  - Three optimization strategies:
-    - Buffer Tree (insert buffers)
-    - Signal Replication (duplicate logic)
-    - Register Retiming (move registers)
-  - Each shows expected improvement
-  
+ - Three optimization strategies:
+ - Buffer Tree (insert buffers)
+ - Signal Replication (duplicate logic)
+ - Register Retiming (move registers)
+ - Each shows expected improvement
+ 
 **Demo Script**:
 ```
 1. Same signal as above
-2. Click "💡 Get Optimization Suggestions"
+2. Click " Get Optimization Suggestions"
 3. Show current state metrics
 4. Expand each of the 3 optimization options
 5. Explain implementation guidance for each
@@ -91,8 +91,8 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 #### 3. **Timing-Aware Signal Tracing**
 - **Location**: Signal Tracer tab
 - **What to show**:
-  - Trace results now include gate types and cumulative delay
-  
+ - Trace results now include gate types and cumulative delay
+ 
 **Demo Script**:
 ```
 1. Go to "Signal Tracer" tab
@@ -131,7 +131,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 📝 Key Talking Points
+## Key Talking Points
 
 ### Technical Depth:
 - "We modeled gate delays based on 28nm CMOS characteristics"
@@ -153,7 +153,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 🔍 Finding Good Demo Signals
+## Finding Good Demo Signals
 
 ### For High Fanout (Demo 3):
 1. Go to Connectivity Report tab
@@ -174,7 +174,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## ⚠️ Troubleshooting
+## Troubleshooting
 
 ### If DAG Generation is Slow:
 - Expected for first time (30-60 seconds for 9005 lines)
@@ -193,7 +193,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 📊 Metrics to Highlight
+## Metrics to Highlight
 
 ### Performance:
 - Startup: 2-3 seconds
@@ -214,7 +214,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 🏆 Wow Factors
+## Wow Factors
 
 1. **Live Delay Calculation**: "See the 2.35 ns delay update in real-time"
 2. **Health Indicators**: "Color-coded from good to critical"
@@ -225,7 +225,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 📦 Deliverables for Judges
+## Deliverables for Judges
 
 1. **Live Demos**: Both running on localhost
 2. **Enhancement Summary**: `ENHANCEMENTS_SUMMARY.md`
@@ -236,18 +236,18 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 🎯 Final Checklist
+## Final Checklist
 
-- [ ] Demo 2 running on port 8520
-- [ ] Demo 3 running on port 8610
-- [ ] Tested critical path analysis
-- [ ] Tested buffer suggestions
-- [ ] Tested fanout analyzer
-- [ ] Tested optimization suggestions
-- [ ] Read enhancement summary
-- [ ] Identified 2-3 demo signals
-- [ ] Practiced 5-minute pitch
-- [ ] Prepared backup HTML exports
+- ] Demo 2 running on port 8520
+- ] Demo 3 running on port 8610
+- ] Tested critical path analysis
+- ] Tested buffer suggestions
+- ] Tested fanout analyzer
+- ] Tested optimization suggestions
+- ] Read enhancement summary
+- ] Identified 2-3 demo signals
+- ] Practiced 5-minute pitch
+- ] Prepared backup HTML exports
 
 ---
 

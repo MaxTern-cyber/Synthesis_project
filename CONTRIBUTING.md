@@ -1,13 +1,13 @@
 # Contributing
 
-Thanks for considering a contribution. This project is a research-prototype EDA suite — issues, PRs, and discussion are all welcome.
+Thanks for considering a contribution. This project is a research-prototype EDA suite -- issues, PRs, and discussion are all welcome.
 
 ## Ways to contribute
 
-- **Bug reports** — open an issue with the Verilog file (or a minimal reproducer), the tool, and the stack trace.
-- **Feature ideas** — especially around the roadmap items (STA-lite, local-LLM agent, hardware-security rules, GraphML export, GNN experiments).
-- **Sample designs** — open-source RTL/netlists that exercise edge cases (large fanout, combinational loops, multi-clock CDC).
-- **Documentation** — clearer algorithm explanations, additional architecture notes.
+- **Bug reports** -- open an issue with the Verilog file (or a minimal reproducer), the tool, and the stack trace.
+- **Feature ideas** -- especially around the roadmap items (STA-lite, local-LLM agent, hardware-security rules, GraphML export, GNN experiments).
+- **Sample designs** -- open-source RTL/netlists that exercise edge cases (large fanout, combinational loops, multi-clock CDC).
+- **Documentation** -- clearer algorithm explanations, additional architecture notes.
 
 ## Development setup
 
@@ -23,9 +23,9 @@ Run any tool with `streamlit run tools/<demo>/<file>.py --server.port <port>`.
 
 ## Coding style
 
-- Python ≥ 3.10
+- Python >= 3.10
 - `black` for formatting, `flake8` for linting (both in `requirements.txt`)
-- Keep new analyses as functions over `networkx.DiGraph` — do not couple them to Streamlit UI code.
+- Keep new analyses as functions over `networkx.DiGraph` -- do not couple them to Streamlit UI code.
 
 ## PR checklist
 
