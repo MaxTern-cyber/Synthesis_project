@@ -5,6 +5,7 @@
 > An open-source, local-first research prototype. Research-prototype quality, not production EDA.
 
 [![CI](https://github.com/MaxTern-cyber/Synthesis_project/actions/workflows/ci.yml/badge.svg)](https://github.com/MaxTern-cyber/Synthesis_project/actions/workflows/ci.yml)
+[![Live Demo](https://img.shields.io/badge/live%20demo-streamlit%20cloud-FF4B4B.svg)](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.53%2B-FF4B4B.svg)](https://streamlit.io)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -12,9 +13,8 @@
 [![Topic: Verilog](https://img.shields.io/badge/topic-Verilog-orange.svg)](#)
 [![Topic: Graph Algorithms](https://img.shields.io/badge/topic-Graph%20Algorithms-success.svg)](#)
 
-> **Try it live:** the analyzer module is deployed on Streamlit Cloud --
-> pick a sample design or upload your own Verilog. *(Live URL added once
-> deployment finishes -- see [streamlit_app.py](streamlit_app.py).)*
+> **Try it live:** [synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/)
+> -- pick a sample design (try `array_mult16.v` for the 1278-node visualization) or upload your own Verilog. Source: [streamlit_app.py](streamlit_app.py).
 
 ---
 

@@ -21,6 +21,9 @@
 >
 > Local-first. No API keys. No cloud. Designs are IP -- anything that ships RTL to a third-party endpoint is a non-starter inside chip companies.
 >
+> **Live demo (no install):** https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/
+> Try `array_mult16.v` -- a 1278-node, 1985-edge multiplier DAG renders in your browser.
+>
 > Stack: Python * NetworkX * PyVis * Plotly * Streamlit
 >
 > This is a research prototype, not production EDA. It's also a scaffold I plan to grow into a delay-aware STA-lite + local-LLM agent next.

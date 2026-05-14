@@ -20,6 +20,8 @@ I build at the intersection of **EDA**, **AI**, and **hardware security**.
 
 An open-source, local-first research prototype: Verilog/RTL -> `networkx.DiGraph` -> 7 analysis tools (fanout cone, critical path, combinational loops, CDC, FSM detection, I/O chains) -> interactive 2D/3D visualization -> hooks for an AI-assistance layer.
 
+**Live demo:** [synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/)
+
 > Built around one idea: the post-synthesis netlist is a first-class graph object -- everything else (algorithms, AI, UI) flows from that.
 
 `Python` * `NetworkX` * `PyVis` * `Streamlit` * `Plotly`
