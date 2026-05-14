@@ -12,6 +12,10 @@
 [![Topic: Verilog](https://img.shields.io/badge/topic-Verilog-orange.svg)](#)
 [![Topic: Graph Algorithms](https://img.shields.io/badge/topic-Graph%20Algorithms-success.svg)](#)
 
+> **Try it live:** the analyzer module is deployed on Streamlit Cloud --
+> pick a sample design or upload your own Verilog. *(Live URL added once
+> deployment finishes -- see [streamlit_app.py](streamlit_app.py).)*
+
 ---
 
 ## Motivation
