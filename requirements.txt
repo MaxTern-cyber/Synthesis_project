@@ -1,78 +1,21 @@
-# Requirements - Hardware Netlist Analysis & Debug Suite
+# Runtime dependencies for Synthesis_project.
+# Pinned to known-working minimums; newer versions should work.
+#
+# Install:
+#     pip install -r requirements.txt
 
-## Core Dependencies
-
-```
+# --- Core ---
 streamlit>=1.53.0
 networkx>=3.0
 pandas>=2.0.0
 numpy>=1.24.0
 pyvis>=0.3.1
 plotly>=5.14.0
-```
 
-## Optional Dependencies
-
-```
-# For advanced visualization
+# --- Optional visualisation extras ---
 matplotlib>=3.7.0
 seaborn>=0.12.0
 
-# For performance optimization
-numba>=0.57.0
-
-# For export formats
+# --- Optional export formats ---
 openpyxl>=3.1.0
 xlsxwriter>=3.1.0
-```
-
-## Development Dependencies
-
-```
-pytest>=7.3.0
-black>=23.3.0
-flake8>=6.0.0
-mypy>=1.3.0
-```
-
-## Installation
-
-### Standard Installation
-```bash
-pip install -r requirements.txt
-```
-
-### Development Installation
-```bash
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-```
-
-### From Source
-```bash
-git clone <repository>
-cd Buildathon
-pip install -e .
-```
-
-## Platform Requirements
-
-- **Python**: 3.14 or higher
-- **OS**: Windows 10/11, macOS 10.15+, Linux (Ubuntu 20.04+)
-- **RAM**: 4GB minimum, 8GB recommended
-- **Storage**: 500MB for installation, 1GB for sample netlists
-
-## Browser Requirements
-
-- Chrome 90+
-- Firefox 88+
-- Edge 90+
-- Safari 14+
-
-## Notes
-
-- All dependencies are pure Python (no C extensions required)
-- NetworkX provides graph algorithms
-- Streamlit handles web UI
-- PyVis generates interactive visualizations
-- No GPU required

@@ -4,6 +4,7 @@
 >
 > An open-source, local-first research prototype. Research-prototype quality, not production EDA.
 
+[![CI](https://github.com/MaxTern-cyber/Synthesis_project/actions/workflows/ci.yml/badge.svg)](https://github.com/MaxTern-cyber/Synthesis_project/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.53%2B-FF4B4B.svg)](https://streamlit.io)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
