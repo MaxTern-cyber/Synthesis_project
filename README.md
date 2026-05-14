@@ -50,11 +50,9 @@ The repo is a working prototype answering #1 today and a scaffold for #2 (`tools
 | ![Multiplier node detail](docs/images/closeup-multiplier-nodes.png) | ![Pipeline registers](docs/images/pipeline-registers.png) |
 | Color-coded nodes: `AND` gates (blue), `full_adder` instances (orange), signals (grey). Edges are net connections. | Diamond-shaped nodes are sequential elements (registers). Clock/reset trees fan out from `rst_n`. |
 
-**Demo video** ([download](docs/media/demo.mp4)):
+**Demo** -- 6-second walk-through of the analyzer ([download MP4](docs/media/demo.mp4)):
 
-<video src="docs/media/demo.mp4" controls width="720">
- Your browser does not support the video tag. <a href="docs/media/demo.mp4">Download the demo</a>.
-</video>
+![Demo GIF](docs/media/demo.gif)
 
 > *All visualizations are produced by [`launchers/generate_sample_outputs.py`](launchers/generate_sample_outputs.py) and live in [`outputs/`](outputs/). Open any `.html` file in a browser for full pan / zoom / hover.*
 
