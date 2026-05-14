@@ -28,9 +28,9 @@ The repo is a working prototype answering #1 today and a scaffold for #2 (`tools
 
 ## Status
 
-> Bring your own Verilog (any structural / gate-level `.v`) and the analyzer will load it. A small generic test design ships at [`tools/rtl_analyzer/sample_counter.v`](tools/rtl_analyzer/sample_counter.v).
+> Five small, textbook structural-Verilog designs ship in [`samples/`](samples/) (adder, decoder, mux, traffic-light FSM, 3-stage pipeline). All are original public-domain designs written for this project — zero third-party IP. **Bring your own Verilog** too: any structural / gate-level `.v` works.
 >
-> A refreshed demo using open-source benchmark designs (ISCAS-85, OpenCores) is on the [roadmap](#roadmap).
+> Adding ISCAS-85 / OpenCores designs as additional samples is on the [roadmap](#roadmap).
 
 ---
 
@@ -164,6 +164,7 @@ Seven tools, all built on the same graph core:
 |   \-- dag_visualizer/      #   Standalone 3D DAG gen    (port 8650)
 |
 |-- launchers/               # convenience scripts
+|-- samples/                 # textbook Verilog designs (see samples/README.md)
 |-- docs/                    # extended documentation
 \-- lib/                     # PyVis static assets used by visualizations
 ```
@@ -196,7 +197,7 @@ python launchers/PRESENTATION_LAUNCHER.py
 | Advanced Debugger        | `streamlit run tools/final_debugger/advanced_debugger.py --server.port 8640` | http://localhost:8640 |
 | DAG Visualizer           | `streamlit run tools/dag_visualizer/dag_visualizer.py --server.port 8650` | http://localhost:8650 |
 
-Sample inputs: bring any structural / gate-level Verilog `.v` file. A small generic test design ships at [`tools/rtl_analyzer/sample_counter.v`](tools/rtl_analyzer/sample_counter.v).
+Sample inputs: five small textbook designs ship in [`samples/`](samples/) — try `samples/adder4.v` (critical path), `samples/decoder2to4.v` (fanout), or `samples/fsm_traffic.v` (FSM detection). Any other structural / gate-level Verilog `.v` works too.
 
 ---
 
