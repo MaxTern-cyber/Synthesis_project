@@ -4,6 +4,7 @@ Pre-generated interactive DAG visualizations for every design in [`../samples/`]
 
 | Sample | Output | Scale |
 |--------|--------|-------|
+| [`c17.v`](../samples/c17.v)                   | [`c17.html`](c17.html)                 | 17 nodes / 18 edges (ISCAS-85) |
 | [`adder4.v`](../samples/adder4.v)             | [`adder4.html`](adder4.html)           | 34 nodes / 37 edges |
 | [`decoder2to4.v`](../samples/decoder2to4.v)   | [`decoder2to4.html`](decoder2to4.html) | 15 nodes / 20 edges |
 | [`mux4to1.v`](../samples/mux4to1.v)           | [`mux4to1.html`](mux4to1.html)         | 20 nodes / 25 edges |

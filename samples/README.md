@@ -13,6 +13,7 @@ multiplier topology), see [`../CREDITS.md`](../CREDITS.md).
 
 | File | Type | What it exercises |
 |------|------|-------------------|
+| [`c17.v`](c17.v) | Combinational, structural | **ISCAS-85 benchmark** -- smallest classic academic benchmark (6 NAND gates) |
 | [`adder4.v`](adder4.v) | Combinational, structural | Critical path, cone-of-influence, gate-level depth |
 | [`decoder2to4.v`](decoder2to4.v) | Combinational, structural | Fanout analysis, input->output dependency chains |
 | [`mux4to1.v`](mux4to1.v) | Combinational, structural | Fanin tracing, cone-of-influence |
