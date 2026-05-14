@@ -101,10 +101,17 @@ by, but do not re-implement:
 
 - E. Ustun et al., *"Accurate Operation Delay Prediction for FPGA HLS
  Using Graph Neural Networks,"* ICCAD 2020.
-- **NVIDIA Research -- GLOAM** (Graph Learning On A Manifold) and related
- graph-learning work on circuit timing / placement prediction.
- *Exact citation to be filled in -- see project author for the latest
- reference.*
+- **Yanqing Zhang, Mark Haoxing Ren (NVIDIA Research)** -- *"GL0AM:
+ GPU-Accelerated Gate-Level Logic Simulator"* (DAC 2023, extended in
+ *"GL0AM: GPU Logic Simulation Using 0-Delay and Re-Simulation,"*
+ IEEE 2025). Open-source reference implementation:
+ <https://github.com/NVlabs/GL0AM>.
+ The [`tools/parallelism`](tools/parallelism) module in this repo is
+ inspired by GL0AM's core observation (levelize the DAG -> evaluate
+ same-level gates in parallel -> partition register-bounded cones for
+ load-balancing). This repo only implements the **static analysis**
+ (Brent's-bound speedup prediction) on CPU in Python -- not the GPU
+ kernels.
 - NVIDIA Research blog posts on graph learning for circuit timing
  prediction (publicly available, 2022-2024).
 - Synopsys / Cadence published whitepapers on ML-assisted PD flows

@@ -68,6 +68,7 @@ with st.sidebar:
         "- **Topological-sort + DP** for longest-path on the combinational DAG\n"
         "- **Tarjan SCC** for combinational-loop detection\n"
         "- **STA-lite** -- arrival / required / slack DP with kind-keyed delays\n"
+        "- **Parallelism profile** -- levelization + Brent's-bound speedup (GL0AM-inspired)\n"
     )
     st.markdown("---")
     st.markdown(
@@ -236,9 +237,62 @@ else:
 
 
 # ----------------------------------------------------------------------------
+# Parallelism profile (GL0AM-inspired)
+# ----------------------------------------------------------------------------
+from tools.parallelism import profile as par_profile  # noqa: E402
+
+st.subheader("5. Parallelism profile (GL0AM-inspired)")
+st.caption(
+    "Levelize the DAG, count gates per topological level, and compute the "
+    "theoretical maximum parallel speedup (Brent's bound = |gates| / "
+    "critical-path-length). This is the upper bound on speedup achievable "
+    "by ANY parallel simulator -- GPU (e.g. NVIDIA GL0AM), multi-threaded "
+    "CPU, or FPGA emulator -- on this netlist. Inspired by "
+    "[GL0AM (Zhang & Ren, NVIDIA Research)]"
+    "(https://github.com/NVlabs/GL0AM)."
+)
+
+par = par_profile(g)
+
+p1, p2, p3, p4 = st.columns(4)
+p1.metric("Theoretical speedup", f"{par.theoretical_speedup:.2f}x",
+          help="|gates| / critical-path-length (Brent's bound)")
+p2.metric("Max parallel width", f"{par.max_width}",
+          help="Largest number of gates evaluable in one parallel step")
+p3.metric("Critical-path depth", f"{par.critical_path_length}")
+p4.metric("Combinational cones", f"{par.partitions}",
+          help="Register-bounded independent simulation units")
+
+# Verdict banner
+if "excellent" in par.verdict.lower():
+    st.success(f"**Verdict:** {par.verdict}")
+elif "moderate" in par.verdict.lower():
+    st.info(f"**Verdict:** {par.verdict}")
+else:
+    st.warning(f"**Verdict:** {par.verdict}")
+
+# Width-per-level chart
+if par.width_per_level:
+    import pandas as pd  # noqa: E402
+    df_widths = pd.DataFrame(
+        {
+            "Level (topological depth)": list(par.width_per_level.keys()),
+            "Gates at this level": list(par.width_per_level.values()),
+        }
+    )
+    st.markdown("**Gates simulable in parallel at each level**")
+    st.bar_chart(df_widths, x="Level (topological depth)", y="Gates at this level")
+    st.caption(
+        f"Wide & shallow shape => lots of parallelism. Tall & narrow => "
+        f"serial-bound. This design: avg={par.avg_width:.1f} gates/level, "
+        f"max={par.max_width}, levels={par.critical_path_length}."
+    )
+
+
+# ----------------------------------------------------------------------------
 # Visualization
 # ----------------------------------------------------------------------------
-st.subheader("5. Interactive DAG")
+st.subheader("6. Interactive DAG")
 
 max_nodes = st.slider(
     "Cap nodes shown (large graphs render slowly in the browser):",

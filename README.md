@@ -140,6 +140,22 @@ Once combinational loops are broken at sequential boundaries, the timing graph i
 
 Wired into the [live Streamlit demo](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/) -- pick a sample, drag the clock-period slider, watch slack flip.
 
+### 2c. Parallelism profile -- DAG levelization & Brent's-bound speedup (GL0AM-inspired)
+
+[`tools/parallelism`](tools/parallelism) answers a different question on the same DAG: **"if you ran this netlist on a parallel logic simulator, how much speedup could you possibly get?"**
+
+The approach is inspired by [NVIDIA Research's GL0AM](https://github.com/NVlabs/GL0AM) (GPU-Accelerated Gate-Level Logic Simulator, Zhang & Ren). GL0AM levelizes the netlist, schedules same-level gates onto GPU SMs in lock-step, and uses graph partitioning to minimize synchronization overhead. This module ports the *analysis* half of that idea to CPU Python:
+
+1. **Levelize the combinational DAG** -- `level[v] = 1 + max(level[u] for u in preds)`. All gates at the same level have no data dependency -> simulable in one parallel step.
+2. **Width-per-level histogram** -- wide-and-shallow shape => lots of parallelism; tall-and-narrow => serial-bound.
+3. **Brent's bound** -- $\text{speedup}_{\max} = |V|\;/\;L_{\max}$. Upper bound on parallel speedup for *any* parallel simulator on this design.
+4. **Partition count** -- weakly-connected components in the register-cut graph. Each partition is an independent combinational cone; more partitions => easier GPU load-balancing.
+5. **Verdict** -- coarse "is this design worth GPU-accelerating?" tag (trivial / serial-bound / moderate / GL0AM-regime).
+
+Measured on this repo's samples: `c17` is trivial (2.4x), `c432` is moderate (9.2x, 36 gates per parallel step), and **`array_mult16` lands in the GL0AM-regime at 14.0x with 260 gates per parallel step at its widest level** -- exactly the size class where GPU acceleration starts paying off.
+
+This is a **research-prototype** module; it identifies where GPU acceleration would be valuable, it does not perform GPU simulation itself.
+
 ### 3. Combinational-loop detection -- Tarjan's SCC
 
 A combinational loop is a strongly connected component of size > 1 in the combinational sub-graph. Tarjan's algorithm finds all SCCs in $O(|V|+|E|)$. Each non-trivial SCC is reported with severity (CRITICAL / WARNING / INFO) based on cycle length and gate composition, with a suggestion of where to insert a register to break it.
@@ -183,7 +199,23 @@ End-to-end results on the bundled sample designs (single-thread, Python 3.12, no
 | `c432.v` | **ISCAS-85** | 160 | 378 | 518 | 41 | **-1.210 ns** at `N421` |
 | `array_mult8.v` | generated | 320 | 326 | 489 | 43 | **-5.120 ns** at `s_7_7` |
 | `array_mult16.v` | generated | 1450 | **1278** | **1985** | 91 | **-12.320 ns** at `s_15_15` |
-| **Total CI runtime** | | | | | | **< 5 s** for full test suite (24 tests) |
+| **Total CI runtime** | | | | | | **< 5 s** for full test suite (36 tests) |
+
+### Parallelism profile (GL0AM-inspired)
+
+Same DAG, different question -- "what's the upper bound on parallel-simulation speedup?"
+
+| Sample | Nodes | Critical path | Max parallel width | **Theoretical speedup** | Verdict |
+|---|---:|---:|---:|---:|---|
+| `c17.v` | 17 | 7 | 5 | 2.43x | trivial - parallelism moot |
+| `decoder2to4.v` | 15 | 5 | 3 | 3.00x | trivial |
+| `mux4to1.v` | 20 | 7 | 6 | 2.86x | trivial |
+| `adder4.v` | 34 | 9 | 12 | 3.78x | trivial |
+| `c432.v` (ISCAS-85) | 378 | 41 | 36 | **9.22x** | moderate - some speedup possible |
+| `array_mult8.v` | 326 | 43 | 68 | 7.58x | moderate |
+| `array_mult16.v` | **1278** | 91 | **260** | **14.04x** | **excellent - good GPU candidate (GL0AM regime)** |
+
+The headline: as netlists scale, **available parallelism grows faster than the critical path** -- exactly the economic case for GPU-accelerated logic simulation. The `array_mult16` design exposes **260 gates evaluable in one parallel step** at its widest level, which is comfortably in the regime where GL0AM-style scheduling pays off.
 
 Worst-slack numbers use the illustrative delay model in [`tools/sta_lite/`](tools/sta_lite/sta.py); they are not silicon-accurate but they are reproducible and they correctly track design complexity (16x16 multiplier critical path is **91 gates deep** vs. adder's 9).
 
