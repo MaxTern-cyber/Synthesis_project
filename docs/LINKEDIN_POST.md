@@ -1,61 +1,73 @@
-# LinkedIn post -- draft
+# LinkedIn post -- v0.1.0 announcement
 
-> Copy-paste-ready. Pick one variant (Hook A or B), paste video / screenshot, click "Post". Also save to **Featured** section.
+> Copy-paste-ready. Pick Variant A or B, attach 1-2 screenshots or the
+> social-preview banner, post. Then save to **Featured** section.
 
 ---
 
-## Variant A -- Curiosity hook (recommended)
+## Variant A -- "What I shipped" hook (recommended)
 
-> What if synthesis and verification workflows could become AI-assisted instead of script-heavy?
+> I just tagged **v0.1.0** of an open-source EDA prototype I've been building -- and the result is a tool that asks: how much of a commercial netlist analyzer can you reproduce with Python + NetworkX, running 100% locally, in a browser?
 >
-> I spent the last few days exploring that question -- and the result is **Synthesis_project**, an open-source EDA prototype built around one idea: treat the post-synthesis netlist as a first-class graph object, then layer analysis (and eventually AI-assistance) on top.
+> Quite a lot, it turns out.
 >
-> What's in it
-> -- Verilog netlist & RTL parser -> `networkx.DiGraph`
-> -- Fanout-cone extraction (reverse BFS)
-> -- Critical-path analysis (longest path on DAG, O(V+E))
-> -- Combinational-loop detection (Tarjan SCC)
-> -- Clock-domain propagation, FSM / pipeline detection
-> -- I/O dependency chains, interactive 2D / 3D DAG visualization
-> -- Hooks for an AI-assistance layer (cone summarization, hardware-security anti-pattern detection, buffer-insertion suggestions)
+> **Synthesis_project** treats the post-synthesis Verilog netlist as a first-class graph object and layers four analysis modules on the same DAG:
+>
+> ▸ **Static Timing Analysis (STA-lite)** -- forward/backward DP for arrival, required, and slack times. Kind-keyed delay model. Configurable clock period.
+> ▸ **Parallelism profile (GL0AM-inspired)** -- DAG levelization + Brent's-bound theoretical-speedup analysis. Answers "is this design worth GPU-accelerating?" Inspired by NVIDIA Research's GL0AM (Zhang & Ren, DAC 2023).
+> ▸ **Hardware-security audit** -- 5-rule heuristic ruleset (combinational loops, reset gating, async-reset-without-synchronizer, dangling logic / trojan candidates, multi-driver nets).
+> ▸ **Interactive DAG visualization** -- PyVis + Plotly in a Streamlit UI.
+>
+> **Headline numbers on the bundled samples:**
+> ▸ `c17` (ISCAS-85, 17 nodes): 2.4× theoretical parallel speedup
+> ▸ `c432` (ISCAS-85, 378 nodes): 9.2× -- worst slack -1.21 ns at N421
+> ▸ `array_mult16` (1278-node 16×16 multiplier): **14.0× -- GL0AM regime**, with 260 gates evaluable in one parallel step
 >
 > Local-first. No API keys. No cloud. Designs are IP -- anything that ships RTL to a third-party endpoint is a non-starter inside chip companies.
 >
+> **What's in the v0.1.0 ship:**
+> 52 unit tests · CI on Python 3.10 / 3.11 / 3.12 · mypy-clean · PEP-621 packaging · 9 sample designs (incl. 2 ISCAS-85 benchmarks).
+>
 > **Live demo (no install):** https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/
-> Try `array_mult16.v` -- a 1278-node, 1985-edge multiplier DAG renders in your browser.
+> **Repo + release notes:** https://github.com/MaxTern-cyber/Synthesis_project/releases/tag/v0.1.0
 >
-> Stack: Python * NetworkX * PyVis * Plotly * Streamlit
+> Stack: Python · NetworkX · PyVis · Plotly · Streamlit · pytest · mypy · GitHub Actions
 >
-> This is a research prototype, not production EDA. It's also a scaffold I plan to grow into a delay-aware STA-lite + local-LLM agent next.
+> Research prototype, not production EDA. Next: Ollama-backed local LLM agent over the DAG, and a GNN experiment to predict critical-path location from structural features.
 >
-> If you work in EDA, formal verification, synthesis, hardware security, or AI-for-chip-design, I'd love your feedback.
+> If you work in EDA, formal verification, hardware security, GPU simulation, or AI-for-chip-design -- I'd love your feedback.
 >
-> GitHub: https://github.com/MaxTern-cyber/Synthesis_project
-> Demo video & screenshots in the README.
->
-> #VLSI #EDA #Verilog #RTL #FormalVerification #Synthesis #HardwareSecurity #AIforChipDesign #OpenSource #GraphAlgorithms #NetworkX
+> #VLSI #EDA #Verilog #RTL #StaticTimingAnalysis #HardwareSecurity #GPUComputing #AIforChipDesign #OpenSource #GraphAlgorithms #NetworkX
 
 ---
 
 ## Variant B -- Builder hook
 
-> Spent a weekend asking a simple question:
+> Spent a few weeks asking a simple question:
 >
-> **How much of a commercial netlist analyzer can you reproduce with NetworkX, PyVis, and Streamlit -- running 100% locally, in a browser, with no licenses?**
+> **How much of a commercial netlist analyzer can you reproduce with NetworkX, PyVis, and Streamlit -- running 100% locally, in a browser?**
 >
-> Quite a lot, it turns out.
+> [paste screenshot: parallelism profile + security audit side-by-side]
 >
-> [paste 1-2 screenshots of fanout cone + full DAG]
+> The answer, in v0.1.0:
+> ▸ Parser (Verilog primitives + named instances + behavioral RTL) → `networkx.DiGraph`
+> ▸ STA-lite (arrival / required / slack DP -- linear time)
+> ▸ Parallelism profile (DAG levelization + Brent's bound -- GL0AM-inspired)
+> ▸ Hardware-security audit (5-rule heuristic over the DAG)
+> ▸ Interactive PyVis visualization
+> ▸ Live Streamlit demo
 >
-> The repo ships seven small tools, all built on the same graph core:
-> Hardware Debug Assistant * Netlist Analyzer * RTL Analyzer * Advanced Debugger * DAG Visualizer * ...
+> All algorithms are textbook. The point isn't novelty -- it's how much you get for free once your data model is a graph.
 >
-> Algorithms used (all standard, all in the README):
-> fanout cone = reverse BFS, critical path = longest path on DAG via topological-sort DP, combinational loops = Tarjan SCC, clock-domain propagation = attribute-tagging DFS, FSM detection = register sub-graph pattern matching.
+> Algorithms in one line each:
+> fanout cone = forward BFS · longest combinational path = topological sort + DP · combinational loops = Tarjan SCC · clock-domain propagation = attribute-tagging DFS · parallelism = level = 1 + max(level of predecessors).
 >
-> Where this gets interesting is the AI-assistance layer -- a graph is the right representation for an LLM agent to reason over. Cone summarization, hardware-security anti-pattern detection, buffer-insertion hints -- all become local sub-graph queries.
+> Headline benchmark: on a 1278-node 16×16 array multiplier, the parallelism profile reports **14.0× theoretical speedup** -- exactly the size class where GPU-accelerated logic simulation (cf. NVIDIA GL0AM) starts paying off.
 >
-> https://github.com/MaxTern-cyber/Synthesis_project
+> v0.1.0 tagged: 52 tests, CI on 3 Python versions, mypy clean, live Streamlit demo, full release notes.
+>
+> https://github.com/MaxTern-cyber/Synthesis_project/releases/tag/v0.1.0
+> https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/
 >
 > Open to feedback from anyone in EDA, formal verification, or AI-for-chip-design.
 >
@@ -66,15 +78,15 @@
 ## Suggested first comment (boosts engagement)
 
 > A few questions I'd love feedback on:
-> 1. Which AI-assistance feature would actually help in your day-to-day flow -- cone summarization, security anti-pattern detection, or buffer/timing hints?
-> 2. Anyone using local LLMs (Ollama / Llama-3 / Phi-3) inside an EDA loop today?
-> 3. Open-source designs you'd want me to test the analyzer on?
+> 1. Which of the four modules looks most useful in your day-to-day flow -- STA-lite, parallelism profile, hardware-security audit, or interactive DAG?
+> 2. Anyone using local LLMs (Ollama / Llama-3 / Phi-3) inside an EDA loop today? That's the next module I want to ship (issue #3 on the repo).
+> 3. Open-source designs you'd want me to test the analyzer on? c1908 and c6288 from ISCAS-85 are already on the roadmap.
 
 ## Posting checklist
 
-- ] Upload the 30-second screen recording as a native video (better reach than a link).
-- ] Add 1-2 fresh screenshots once new sample designs are added.
-- ] Tag 3-5 connections who work in EDA / VLSI.
-- ] Save to **Featured** section on your profile.
-- ] Repost to your **About** section + **Projects**.
-- ] Cross-post a shorter version to X/Twitter the next day.
+- [ ] Attach the social-preview banner (`docs/images/social-preview.png`) or a 30-second screen recording of the live demo
+- [ ] Add 1-2 screenshots: parallelism profile + security audit
+- [ ] Tag 3-5 connections who work in EDA / VLSI / GPU computing
+- [ ] Save to **Featured** section of your profile
+- [ ] Repost a shorter version to X/Twitter the next day
+- [ ] Pin the link to your GitHub profile README (already done)
