@@ -2,7 +2,7 @@
 
 > **An AI-assisted synthesis & hardware-security workflow prototype — exploring how graph algorithms and LLM-style assistance can augment conventional EDA flows.**
 >
-> Built as a Buildathon submission (Team `BT190`) by an Application Engineer working on formal verification & synthesis-adjacent tooling. Research-prototype quality, not production EDA.
+> An open-source, local-first research prototype. Research-prototype quality, not production EDA.
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.53%2B-FF4B4B.svg)](https://streamlit.io)
@@ -244,18 +244,19 @@ Contributions and ideas welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 | [docs/USAGE_GUIDE.md](docs/USAGE_GUIDE.md) | Step-by-step usage examples |
 | [docs/QUICK_START.md](docs/QUICK_START.md) | Fastest path to a running demo |
 | [docs/IO_CHAINS_FEATURE.md](docs/IO_CHAINS_FEATURE.md) | I/O dependency-chain feature |
-| [docs/ENHANCEMENTS_SUMMARY.md](docs/ENHANCEMENTS_SUMMARY.md) | Feature additions for Buildathon |
+| [docs/ENHANCEMENTS_SUMMARY.md](docs/ENHANCEMENTS_SUMMARY.md) | Feature additions |
 | [docs/LINKEDIN_POST.md](docs/LINKEDIN_POST.md) | Draft LinkedIn announcement |
 | [docs/BLOG_POST.md](docs/BLOG_POST.md) | Long-form technical write-up |
-| [docs/archive/](docs/archive) | Older presentation / planning notes |
 
 ---
 
 ## Author
 
-**Mallikarjuna A L** — Application Engineer, formal verification & synthesis-adjacent tooling
-GitHub: [@MaxTern-cyber](https://github.com/MaxTern-cyber)
-Team Code: `BT190`
+**Mallikarjuna A L** — EDA engineer building open-source tools for hardware verification.
+
+- GitHub: [@MaxTern-cyber](https://github.com/MaxTern-cyber)
+- LinkedIn: [mallikarjuna-a-l](https://www.linkedin.com/in/mallikarjuna-a-l)
+- Email: mallikarjunaal.ec21@gmail.com
 
 If you work in EDA, formal verification, synthesis, hardware security, or AI-for-chip-design — I'd love to talk.
 

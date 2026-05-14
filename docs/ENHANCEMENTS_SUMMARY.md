@@ -473,7 +473,7 @@ streamlit run debug_assistant.py --server.port 8600
 
 ### Test Netlist:
 - Location: `your_netlist.v` (your design)
-- Source: Cadence Encounter RTL Compiler
+- Source: industry-standard synthesis output
 - Module: MAC register file
 - Auto-loaded on startup
 

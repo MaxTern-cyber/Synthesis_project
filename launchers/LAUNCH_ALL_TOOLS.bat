@@ -1,12 +1,12 @@
 @echo off
 REM ============================================================
-REM  Buildathon BT190 - Launch ALL Tools in parallel
+REM  Synthesis Project - Launch ALL Tools in parallel
 REM ============================================================
 setlocal
 pushd "%~dp0.."
 
 echo ========================================
-echo   BUILDATHON BT190 - LAUNCH ALL TOOLS
+echo   SYNTHESIS PROJECT - LAUNCH ALL TOOLS
 echo ========================================
 echo.
 

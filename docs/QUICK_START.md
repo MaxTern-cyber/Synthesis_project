@@ -108,7 +108,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 ## 🎤 5-Minute Buildathon Pitch
 
 ### Opening (30 seconds):
-"Our tool performs **timing-aware netlist analysis** - not just connectivity, but actual delay estimation at the gate level. We've tested it on a real 9000-line industrial netlist from Cadence."
+"Our tool performs **timing-aware netlist analysis** - not just connectivity, but actual delay estimation at the gate level. We've validated it on synthesized netlists in the 10K-gate range."
 
 ### Demo 2 Walkthrough (2 minutes):
 1. **Show instant stats** (already loaded): "2-3 second startup time"
@@ -146,7 +146,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 - "Three optimization strategies for different scenarios"
 
 ### Scale:
-- "Tested on 9005-line Cadence-generated netlist"
+- "Validated on synthesized netlists in the 10K-gate range"
 - "Analyzes 400+ source-sink path combinations"
 - "Handles signals with 100+ fanout"
 - "Generates detailed reports in seconds"

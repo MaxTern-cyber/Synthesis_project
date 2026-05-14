@@ -1,6 +1,6 @@
 # Hi, I'm Mallikarjuna A L 👋
 
-**Application Engineer @ Cadence Design Systems** — working on formal verification & synthesis-adjacent tooling.
+**EDA engineer building open-source tools for hardware verification.**
 
 I build at the intersection of **EDA**, **AI**, and **hardware security**.
 
@@ -37,8 +37,8 @@ An open-source, local-first research prototype: Verilog/RTL → `networkx.DiGrap
 
 ## 📫 Connect
 
-- LinkedIn: *[your-linkedin-url]*
-- Email: *[your-email]*
+- LinkedIn: [mallikarjuna-a-l](https://www.linkedin.com/in/mallikarjuna-a-l)
+- Email: mallikarjunaal.ec21@gmail.com (alt: almallikarjun55@gmail.com)
 - Open to chat about: **EDA**, **formal verification**, **synthesis**, **hardware security**, **AI-for-chip-design**.
 
 ---

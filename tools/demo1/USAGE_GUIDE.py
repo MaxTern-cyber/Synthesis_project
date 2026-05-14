@@ -5,8 +5,9 @@ QUICK START GUIDE - Enhanced Verilog DAG Tool
 This script shows you how to use all the new features step by step.
 """
 
-import sys
-sys.path.insert(0, r"C:\Users\lmallika\OneDrive - Cadence Design Systems Inc\Desktop\Buildathon")
+import os, sys
+# Anchor to repo root (this file lives at <repo>/tools/demo1/)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 # Import the tool
 exec(open(r"import networkx as nx.py", encoding='utf-8').read().replace("if __name__", "if False"), globals())

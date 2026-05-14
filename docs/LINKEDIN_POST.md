@@ -30,7 +30,7 @@
 > 🔗 GitHub: https://github.com/MaxTern-cyber/Synthesis_project
 > 🎥 Demo video & screenshots in the README.
 >
-> #VLSI #EDA #Verilog #RTL #FormalVerification #Synthesis #HardwareSecurity #AIforChipDesign #OpenSource #GraphAlgorithms #NetworkX #Cadence #Synopsys #SiemensEDA
+> #VLSI #EDA #Verilog #RTL #FormalVerification #Synthesis #HardwareSecurity #AIforChipDesign #OpenSource #GraphAlgorithms #NetworkX
 
 ---
 
@@ -56,7 +56,7 @@
 >
 > Open to feedback from anyone in EDA, formal verification, or AI-for-chip-design.
 >
-> #EDA #Verilog #RTL #HardwareDesign #AIforEDA #OpenSource #GraphAlgorithms #Cadence #Synopsys
+> #EDA #Verilog #RTL #HardwareDesign #AIforEDA #OpenSource #GraphAlgorithms
 
 ---
 

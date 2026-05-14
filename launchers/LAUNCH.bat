@@ -1,13 +1,13 @@
 @echo off
 REM ============================================================
-REM  Buildathon BT190 - Synthesis Project Launcher
+REM  Synthesis Project Launcher
 REM  Anchors to repo root regardless of where this script is run
 REM ============================================================
 setlocal
 pushd "%~dp0.."
 
 echo ===============================================
-echo    BUILDATHON BT190 - LAUNCHER
+echo    SYNTHESIS PROJECT - LAUNCHER
 echo ===============================================
 echo.
 
