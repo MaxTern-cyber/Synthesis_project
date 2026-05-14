@@ -30,10 +30,10 @@ jobs:
           pip install "networkx>=3.0" "pyvis>=0.3.1" pytest mypy
 
       - name: Byte-compile all Python sources
-        run: python -m compileall -q launchers samples tests
+        run: python -m compileall -q launchers samples tests tools
 
       - name: Type-check with mypy
-        run: python -m mypy launchers samples streamlit_app.py --ignore-missing-imports --no-strict-optional
+        run: python -m mypy launchers samples tools/sta_lite streamlit_app.py --ignore-missing-imports --no-strict-optional
 
       - name: Run pytest
         run: python -m pytest tests/ -v

@@ -124,7 +124,19 @@ Implemented as a **bounded-depth reverse BFS** (`networkx.descendants_at_distanc
 
 ### 2. Critical path -- longest path on DAG
 
-Once combinational loops are broken at sequential boundaries, the timing graph is a DAG. The longest path is computed in $O(|V|+|E|)$ via topological-sort + DP -- no exponential search needed. Edge weights are unit (gate-count) by default; the architecture supports per-cell delay tables for future STA-lite extension.
+Once combinational loops are broken at sequential boundaries, the timing graph is a DAG. The longest path is computed in $O(|V|+|E|)$ via topological-sort + DP -- no exponential search needed. Edge weights are unit (gate-count) by default; a kind-keyed delay model lives in [`tools/sta_lite`](tools/sta_lite) -- see below.
+
+### 2b. STA-lite -- arrival / required / slack DP
+
+[`tools/sta_lite`](tools/sta_lite) extends longest-path into a textbook static-timing analyzer:
+
+- Tags each driver node with a `delay` keyed by gate kind (NAND=0.10ns, AND=0.12ns, OR=0.15ns, XOR=0.20ns, NOT=0.05ns, submodule=0.30ns, register=boundary).
+- **Forward DP** over topological order -> `arrival[v] = max(arrival[u] + delay(u))`.
+- **Backward DP** from primary outputs / register inputs -> `required[u] = min(required[v] - delay(u))` against a target clock period.
+- **Slack = required - arrival**. Negative slack -> timing violation.
+- Critical-path backtrace + top-N slowest endpoints report.
+
+Wired into the [live Streamlit demo](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/) -- pick a sample, drag the clock-period slider, watch slack flip.
 
 ### 3. Combinational-loop detection -- Tarjan's SCC
 

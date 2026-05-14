@@ -67,6 +67,7 @@ with st.sidebar:
         "- **Forward BFS** for fanout-cone\n"
         "- **Topological-sort + DP** for longest-path on the combinational DAG\n"
         "- **Tarjan SCC** for combinational-loop detection\n"
+        "- **STA-lite** -- arrival / required / slack DP with kind-keyed delays\n"
     )
     st.markdown("---")
     st.markdown(
@@ -190,9 +191,54 @@ st.write(
 
 
 # ----------------------------------------------------------------------------
+# STA-lite: educational static timing analysis
+# ----------------------------------------------------------------------------
+from tools.sta_lite import analyze, top_n_slowest_endpoints, DEFAULT_DELAYS  # noqa: E402
+
+st.subheader("4. STA-lite (educational static timing analysis)")
+st.caption(
+    "Forward + backward DP over the DAG with kind-keyed unit delays "
+    "(NAND=0.10ns, AND=0.12ns, OR=0.15ns, XOR=0.20ns, NOT=0.05ns, "
+    "submodule=0.30ns, register=boundary). Numbers are illustrative."
+)
+
+if not nx.is_directed_acyclic_graph(g):
+    st.warning("Graph has cycles outside register boundaries -- STA skipped.")
+else:
+    clock_ns = st.slider(
+        "Target clock period (ns):",
+        min_value=0.10, max_value=5.00, value=1.00, step=0.05,
+    )
+    rep = analyze(g, clock_period=clock_ns)
+
+    sta_c1, sta_c2, sta_c3 = st.columns(3)
+    sta_c1.metric("Worst slack", f"{rep.worst_slack:+.3f} ns",
+                  delta="VIOLATED" if rep.worst_slack < 0 else "MET",
+                  delta_color="inverse" if rep.worst_slack < 0 else "normal")
+    sta_c2.metric("Critical-path length", f"{len(rep.critical_path)} nodes")
+    sta_c3.metric("Worst endpoint", str(rep.worst_endpoint or "-").split("/")[-1])
+
+    st.markdown("**Top-5 slowest endpoints (by arrival time)**")
+    top = top_n_slowest_endpoints(g, rep.arrivals, n=5)
+    if top:
+        import pandas as pd
+        df = pd.DataFrame(
+            [(n, f"{a:.3f} ns", f"{rep.slacks.get(n, 0.0):+.3f} ns") for n, a in top],
+            columns=["Endpoint", "Arrival", "Slack"],
+        )
+        st.dataframe(df, use_container_width=True, hide_index=True)
+
+    with st.expander("Show critical path"):
+        if rep.critical_path:
+            st.code(" ->\n".join(rep.critical_path), language="text")
+        else:
+            st.write("(no critical path found)")
+
+
+# ----------------------------------------------------------------------------
 # Visualization
 # ----------------------------------------------------------------------------
-st.subheader("4. Interactive DAG")
+st.subheader("5. Interactive DAG")
 
 max_nodes = st.slider(
     "Cap nodes shown (large graphs render slowly in the browser):",
