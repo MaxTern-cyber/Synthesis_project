@@ -1,0 +1,4 @@
+# Demo 3 Requirements
+streamlit
+networkx
+pandas

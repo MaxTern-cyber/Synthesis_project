@@ -1,0 +1,170 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║         VERILOG DAG TOOL - QUICK REFERENCE CHEAT SHEET                   ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+📦 SETUP
+───────────────────────────────────────────────────────────────────────────
+  tool = VerilogDagTool("netlist.v")
+  tool.parse_and_build()
+
+
+🔍 BASIC ANALYSIS
+───────────────────────────────────────────────────────────────────────────
+  tool.verify_gate("g2705")
+    → Shows inputs, outputs, and connections for a specific gate
+
+  tool.backward_cone("g5536")
+    → Shows ALL gates that can affect this gate (root cause analysis)
+
+  tool.forward_cone("g2705")
+    → Shows ALL gates affected by this gate (impact analysis)
+
+
+🎯 DEBUGGING WORKFLOWS
+───────────────────────────────────────────────────────────────────────────
+
+  🐛 SCENARIO 1: Output signal is wrong
+  ──────────────────────────────────────
+    tool.backward_cone("failing_signal")   # Find all possible causes
+    tool.verify_gate("suspect_gate")        # Check specific gate
+    tool.export_cone_subgraph(cone, "debug.html")  # Visualize
+
+  ⏱️  SCENARIO 2: Timing violation
+  ──────────────────────────────────────
+    tool.find_critical_paths(10)           # Find longest paths
+    tool.trace_signal_path("clk", "output")  # Trace specific path
+
+  🔧 SCENARIO 3: Understanding a change
+  ──────────────────────────────────────
+    tool.forward_cone("modified_gate")     # See what breaks
+    tool.backward_cone("affected_output")  # Verify connections
+
+  🔎 SCENARIO 4: Design verification
+  ──────────────────────────────────────
+    tool.detect_combinational_loops()      # Check for bugs
+    # Check gate counts and fanout
+
+
+📊 ANALYSIS FEATURES
+───────────────────────────────────────────────────────────────────────────
+  tool.detect_combinational_loops()
+    → Finds cycles (unintended latches) - CRITICAL!
+
+  tool.find_critical_paths(top_n=10)
+    → Finds longest gate chains (timing analysis)
+
+  tool.trace_signal_path("signal_a", "signal_b")
+    → Shows all paths between two signals
+
+  tool.calculate_logic_depth()
+    → Shows logic levels (may fail on sequential circuits)
+
+
+💾 EXPORT & VISUALIZATION
+───────────────────────────────────────────────────────────────────────────
+  tool.export_pyvis("my_design.html")
+    → Export full design as interactive HTML
+
+  cone = tool.backward_cone("g2705")
+  tool.export_cone_subgraph(cone, "subgraph.html")
+    → Export specific cone for easier viewing
+
+
+💻 INTERACTIVE MODE
+───────────────────────────────────────────────────────────────────────────
+  Run: python debug_tool.py
+
+  Commands:
+    verify g2705                    → Verify gate connectivity
+    backward g5536                  → Backward cone analysis
+    forward g2705                   → Forward cone analysis
+    trace n_186 n_243               → Trace signal path
+    critical 10                     → Find 10 critical paths
+    loops                           → Detect combinational loops
+    depth                           → Calculate logic depth
+    export_cone g2705 cone.html     → Export cone to file
+    stats                           → Show design statistics
+    help                            → Show all commands
+    quit                            → Exit
+
+
+📈 GET STATISTICS
+───────────────────────────────────────────────────────────────────────────
+  In interactive mode: stats
+
+  Or in Python:
+    print(f"Gates: {tool.dag.number_of_nodes()}")
+    print(f"Connections: {tool.dag.number_of_edges()}")
+    
+    # Gate types
+    gate_types = {}
+    for node in tool.dag.nodes():
+        gtype = tool.dag.nodes[node]['gate_type']
+        gate_types[gtype] = gate_types.get(gtype, 0) + 1
+    
+    # Fanout analysis
+    for node in tool.dag.nodes():
+        fanout = tool.dag.out_degree(node)
+
+
+📁 FILES CREATED
+───────────────────────────────────────────────────────────────────────────
+  level1_final.py              → Original module hierarchy version
+  import networkx as nx.py     → Enhanced version with all features
+  debug_tool.py                → Standalone interactive tool
+  USAGE_GUIDE.py               → This demo script
+  
+  *.html files                 → Interactive visualizations
+
+
+⚡ QUICK EXAMPLES
+───────────────────────────────────────────────────────────────────────────
+
+# Python script example:
+from import networkx as nx import VerilogDagTool
+
+tool = VerilogDagTool("netlist.v")
+tool.parse_and_build()
+tool.backward_cone("g2705")
+tool.forward_cone("g5536")
+tool.detect_combinational_loops()
+
+# Command line example:
+python debug_tool.py
+> backward g2705
+> forward g5536
+> stats
+> quit
+
+
+💡 TIPS
+───────────────────────────────────────────────────────────────────────────
+• Use backward_cone to find root causes of bugs
+• Use forward_cone to assess impact of changes
+• Export cones for smaller, easier-to-view graphs
+• The loops detected are often flip-flop feedback (normal in sequential)
+• High fanout gates (>50) may have timing issues
+• Open HTML files in browser for interactive exploration
+
+
+🆘 TROUBLESHOOTING
+───────────────────────────────────────────────────────────────────────────
+Q: "Gate not found"
+A: Use verify_gate to check if it exists, or use signal name instead
+
+Q: "No path found"
+A: Signals may not be connected, or path is too long (increase cutoff)
+
+Q: "Graph contains a cycle"
+A: Normal for sequential circuits - flip-flops have feedback
+
+Q: "Too many loops detected"
+A: If >100 loops, may have real combinational loops (check non-FF gates)
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+For full demo: python USAGE_GUIDE.py
+For interactive: python debug_tool.py
+
+═══════════════════════════════════════════════════════════════════════════

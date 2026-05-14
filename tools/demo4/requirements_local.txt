@@ -1,0 +1,6 @@
+# Local EDA Analyzer - Requirements (No API needed)
+networkx
+pyvis
+plotly
+pandas
+streamlit
