@@ -24,6 +24,7 @@ SAMPLES = REPO_ROOT / "samples"
 # (filename, min_nodes, min_edges, must_have_kinds)
 CASES = [
     ("c17.v",            10, 10, {"nand"}),
+    ("c432.v",          300, 400, {"nand", "not"}),
     ("adder4.v",         10, 10, {"inst"}),
     ("decoder2to4.v",   10, 10, {"and", "not"}),
     ("mux4to1.v",       10, 10, {"and", "or", "not"}),
