@@ -99,6 +99,10 @@ by, but do not re-implement:
 
 - E. Ustun et al., *"Accurate Operation Delay Prediction for FPGA HLS
  Using Graph Neural Networks,"* ICCAD 2020.
+- **NVIDIA Research -- GLOAM** (Graph Learning On A Manifold) and related
+ graph-learning work on circuit timing / placement prediction.
+ *Exact citation to be filled in -- see project author for the latest
+ reference.*
 - NVIDIA Research blog posts on graph learning for circuit timing
  prediction (publicly available, 2022-2024).
 - Synopsys / Cadence published whitepapers on ML-assisted PD flows

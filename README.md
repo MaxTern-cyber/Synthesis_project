@@ -242,7 +242,7 @@ python samples/generate_array_mult.py 24 # 24x24 -> ~3300 primitives
 - ] **Local-LLM agent** -- Ollama-backed cone summarization (`Llama-3.2-3B-instruct`).
 - ] **Hardware-security ruleset** -- codified anti-patterns for clock-gating, reset trees, scan-chain isolation.
 - ] **GraphML / DEF export** -- interoperate with OpenROAD / Yosys / open-source PD flows.
-- ] **GNN inference experiment** -- predict critical-path location from structural features (inspired by recent NVIDIA / Synopsys research on graph learning for circuits).
+- ] **GNN inference experiment** -- predict critical-path location from structural features. Inspired by recent NVIDIA Research work on graph learning for circuit analysis (NVIDIA GLOAM and related) and academic GNN-for-EDA papers -- see [CREDITS.md](CREDITS.md) for the full reference list.
 - ] **CI** -- pytest suite + GitHub Actions on every push.
 - ] **Streamlit Cloud deployment** -- public live demo.
 
