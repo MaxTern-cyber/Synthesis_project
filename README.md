@@ -261,6 +261,17 @@ Contributions and ideas welcome -- see [CONTRIBUTING.md](CONTRIBUTING.md).
 | [docs/ENHANCEMENTS_SUMMARY.md](docs/ENHANCEMENTS_SUMMARY.md) | Feature additions |
 | [docs/LINKEDIN_POST.md](docs/LINKEDIN_POST.md) | Draft LinkedIn announcement |
 | [docs/BLOG_POST.md](docs/BLOG_POST.md) | Long-form technical write-up |
+| [CREDITS.md](CREDITS.md) | Sample-file provenance, third-party libraries, and academic references |
+
+---
+
+## Credits & references
+
+All sample designs are original public-domain textbook circuits written
+for this project. All third-party libraries are open source under
+permissive licenses (BSD / MIT / Apache-2.0). See [CREDITS.md](CREDITS.md)
+for the full attribution table, library license list, and academic
+references underlying each algorithm.
 
 ---
 

@@ -6,6 +6,9 @@ All files in this folder are **original, public-domain textbook designs** writte
 from scratch for this project -- no third-party IP, no proprietary RTL, no
 synthesized netlists from commercial tools.
 
+For full provenance of each file (and the textbook references behind the
+multiplier topology), see [`../CREDITS.md`](../CREDITS.md).
+
 ## Contents
 
 | File | Type | What it exercises |
