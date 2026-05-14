@@ -103,14 +103,14 @@ def main() -> int:
     draw.text((100, 95), title, font=_load_font(78, bold=True), fill=TEXT)
 
     # Subtitle
-    sub = "AI-assisted Hardware Design Analysis"
+    sub = "AI-assisted Verilog netlist analysis"
     draw.text((103, 195), sub, font=_load_font(32, bold=False), fill=ACCENT)
 
     # Body lines
     body = [
         "Verilog netlist  ->  NetworkX DAG  ->  graph algorithms + AI hooks",
         "Fanout cones * Critical paths * FSM detection * CDC * SCC",
-        "Local-first  *  Browser-only  *  Open-source  *  No API keys",
+        "Visualize a 1278-node multiplier interactively in your browser.",
     ]
     y = 290
     for line in body:
