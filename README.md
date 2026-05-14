@@ -19,16 +19,18 @@
 
 ---
 
-## Motivation
+## Why this matters
 
-Modern synthesis, verification, and physical-design flows are predominantly **script-heavy** and **tool-license-locked**. Engineers spend significant time on tasks that are fundamentally **graph problems** on the netlist -- fanout exploration, cone tracing, combinational-loop detection, critical-path identification, FSM discovery -- yet day-to-day debugging is gated by commercial GUIs and TCL.
+Modern synthesis, verification, and physical-design flows are predominantly **script-heavy** and **commercial-tool-locked**. Engineers spend significant time on tasks that are fundamentally **graph problems** on the netlist -- fanout exploration, cone tracing, combinational-loop detection, critical-path identification, FSM discovery -- yet day-to-day debugging is gated by proprietary GUIs and TCL.
 
-This project explores two questions:
+This project is a **research prototype** asking two questions:
 
-1. **Can a local-first, open-source graph toolkit replicate the analytical core of commercial netlist analyzers** -- using only NetworkX, PyVis, and Streamlit?
-2. **Where can AI-assistance plug into this flow** -- explaining waveforms, summarizing fanout cones, suggesting buffer insertions, detecting hardware-security anti-patterns (e.g. unprotected reset chains, suspicious clock-gating)?
+1. **Can a local-first, open-source graph toolkit replicate the analytical core of commercial netlist analyzers** using only NetworkX, PyVis, and Streamlit?
+2. **Where can AI-assistance plug into this flow** -- explaining critical paths, summarizing fanout cones, suggesting buffer insertions, flagging hardware-security anti-patterns (unprotected reset chains, suspicious clock-gating)?
 
-The repo is a working prototype answering #1 today and a scaffold for #2 (`tools/demo2/ai_agent.py`, `tools/demo4/ai_agent.py`).
+The repo answers #1 today (parser + graph algorithms + STA-lite + interactive viz) and is a scaffold for #2 ([`tools/demo2/ai_agent.py`](tools/demo2/ai_agent.py), [`tools/demo4/ai_agent.py`](tools/demo4/ai_agent.py)).
+
+> Framing: this is positioned as **an exploration into AI-assisted semiconductor design workflows**, not a hackathon demo. It is research-prototype quality -- not production EDA -- and the [limitations](#limitations--honest-disclaimers) section is explicit about that.
 
 ---
 
@@ -166,6 +168,35 @@ These are stubs today; the data model is what makes them tractable.
 
 ---
 
+## Benchmarks
+
+End-to-end results on the bundled sample designs (single-thread, Python 3.12, no caching). Parse + graph build + full STA-lite sweep, on commodity laptop hardware:
+
+| Sample | Source | Gates | Nodes | Edges | Critical path | Worst slack @ 1ns |
+|---|---|---:|---:|---:|---:|---:|
+| `c17.v` | ISCAS-85 | 6 | 17 | 18 | 7 | **+0.700 ns** (MET) |
+| `decoder2to4.v` | textbook | 6 | 15 | 20 | 5 | +0.830 ns (MET) |
+| `mux4to1.v` | textbook | 7 | 20 | 25 | 7 | +0.680 ns (MET) |
+| `adder4.v` | textbook | 5 | 34 | 37 | 9 | **-0.200 ns** (4-bit ripple-carry) |
+| `pipeline3.v` | textbook | 0+6 reg | 12 | 20 | 1 | +1.000 ns (MET) |
+| `fsm_traffic.v` | textbook | 0+2 reg | 9 | 10 | 1 | +1.000 ns (MET) |
+| `c432.v` | **ISCAS-85** | 160 | 378 | 518 | 41 | **-1.210 ns** at `N421` |
+| `array_mult8.v` | generated | 320 | 326 | 489 | 43 | **-5.120 ns** at `s_7_7` |
+| `array_mult16.v` | generated | 1450 | **1278** | **1985** | 91 | **-12.320 ns** at `s_15_15` |
+| **Total CI runtime** | | | | | | **< 5 s** for full test suite (24 tests) |
+
+Worst-slack numbers use the illustrative delay model in [`tools/sta_lite/`](tools/sta_lite/sta.py); they are not silicon-accurate but they are reproducible and they correctly track design complexity (16x16 multiplier critical path is **91 gates deep** vs. adder's 9).
+
+Reproduce locally:
+
+```powershell
+pip install -e ".[dev]"
+synthesis-generate-outputs    # regenerates outputs/*.html
+pytest -v                      # 24 tests, < 5s
+```
+
+---
+
 ## Tooling
 
 Seven tools, all built on the same graph core:
@@ -281,23 +312,43 @@ python samples/generate_array_mult.py 24 # 24x24 -> ~3300 primitives
 
 ## Limitations & Honest Disclaimers
 
-- **No formal STA.** Critical path is gate-count-weighted, not delay-weighted. A delay-table plug-in is part of the roadmap.
-- **Parser is structural-Verilog-only.** Generate-blocks, parameterised modules, and full SV constructs are out of scope.
+This is a research prototype. Calling out what it is **not** is part of taking it seriously.
+
+- **STA-lite uses illustrative delays, not silicon-accurate ones.** [`tools/sta_lite`](tools/sta_lite/) ships a kind-keyed unit-delay model (NAND=0.10ns, AND=0.12ns, ...) sufficient to demonstrate arrival/required/slack propagation. A real flow would consume a `.lib` Liberty file -- which is on the roadmap.
+- **No SDC / constraints parsing.** Clock period is a UI slider, not a file input.
+- **Parser is structural-Verilog-only.** Generate-blocks, parameterised modules, and full SystemVerilog constructs are out of scope.
 - **AI-assistance hooks are scaffolds**, not production agents. They demonstrate where an LLM fits -- model selection (Llama-3, Phi-3, local Ollama) is intentionally pluggable.
-- **No DRC / LVS** -- this is not a physical-design checker.
-- Tested on small-to-medium open-source designs (<= ~10K gates). Scaling to multi-million-gate designs would require swapping NetworkX for a C++ graph backend.
+- **No DRC / LVS / physical-design checks** -- this is netlist analysis, not signoff.
+- **Tested on small-to-medium designs (<= ~10K gates).** Scaling to multi-million-gate designs would require swapping NetworkX for a C++ graph backend (`igraph`, `graph-tool`).
+- **Not a replacement for commercial tooling** (Conformal, PrimeTime, Genus, DC). The point is to demonstrate that the *analytical core* is reproducible with open primitives, not to compete on signoff quality.
 
 ---
 
 ## Roadmap
 
-- ] **Delay-aware STA-lite** -- per-cell delay tables + arrival/required time propagation.
-- ] **Local-LLM agent** -- Ollama-backed cone summarization (`Llama-3.2-3B-instruct`).
-- ] **Hardware-security ruleset** -- codified anti-patterns for clock-gating, reset trees, scan-chain isolation.
-- ] **GraphML / DEF export** -- interoperate with OpenROAD / Yosys / open-source PD flows.
-- ] **GNN inference experiment** -- predict critical-path location from structural features. Inspired by recent NVIDIA Research work on graph learning for circuit analysis (NVIDIA GLOAM and related) and academic GNN-for-EDA papers -- see [CREDITS.md](CREDITS.md) for the full reference list.
-- ] **CI** -- pytest suite + GitHub Actions on every push.
-- ] **Streamlit Cloud deployment** -- public live demo.
+**Shipped:**
+
+- [x] **CI** -- pytest suite (24 tests) + GitHub Actions + mypy type-checking on every push
+- [x] **Streamlit Cloud deployment** -- [public live demo](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/)
+- [x] **Delay-aware STA-lite** -- arrival / required / slack DP with kind-keyed delays ([`tools/sta_lite/`](tools/sta_lite/))
+- [x] **ISCAS-85 benchmarks** -- `c17`, `c432` (160 gates) as canonical academic samples
+- [x] **PEP-621 packaging** -- `pip install -e .` with console entry points
+
+**Open ([see issues](https://github.com/MaxTern-cyber/Synthesis_project/issues)):**
+
+- [ ] **Local-LLM agent** ([#3](https://github.com/MaxTern-cyber/Synthesis_project/issues/3)) -- Ollama-backed cone summarization (`Llama-3.2-3B-instruct`, `Phi-3-mini`)
+- [ ] **GNN inference experiment** ([#4](https://github.com/MaxTern-cyber/Synthesis_project/issues/4)) -- predict critical-path location from structural features
+- [ ] **Hardware-security ruleset** -- codified anti-patterns for clock-gating, reset trees, scan-chain isolation
+- [ ] **GraphML / DEF export** -- interoperate with OpenROAD / Yosys / open-source PD flows
+- [ ] **Larger ISCAS-85 designs** (`c1908`, `c6288` -- 2400 gates)
+
+**Future research directions** (open to collaboration):
+
+- LLM-assisted RTL debugging (explain a failing path in natural language)
+- Equivalence-aware optimization hints
+- Formal-verification integration (Conformal-style LEC pre-checks)
+- Intelligent synthesis-recommendation systems (predict good `compile_ultra` settings from netlist features)
+- AI-guided timing/power tradeoff exploration
 
 Contributions and ideas welcome -- see [CONTRIBUTING.md](CONTRIBUTING.md).
 
