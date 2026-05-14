@@ -15,6 +15,16 @@ synthesized netlists from commercial tools.
 | [`mux4to1.v`](mux4to1.v)       | Combinational, structural | Fanin tracing, cone-of-influence |
 | [`fsm_traffic.v`](fsm_traffic.v) | Sequential, behavioral    | FSM detection, register graph, clock/reset trees |
 | [`pipeline3.v`](pipeline3.v)   | Sequential, behavioral    | Pipeline detection, multi-stage critical path |
+| [`array_mult8.v`](array_mult8.v)   | Combinational, structural | **Scale demo** — 8×8 Braun array multiplier (~320 prims, 326 nodes) |
+| [`array_mult16.v`](array_mult16.v) | Combinational, structural | **Scale demo** — 16×16 Braun array multiplier (~1450 prims, **1278 nodes / 1985 edges**) |
+
+## Generating larger multipliers
+
+The two multiplier files are produced by a parameterized generator. To produce, e.g., a 24×24 variant:
+
+```powershell
+python samples/generate_array_mult.py 24
+```
 
 ## How to use
 

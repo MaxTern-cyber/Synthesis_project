@@ -28,7 +28,7 @@ The repo is a working prototype answering #1 today and a scaffold for #2 (`tools
 
 ## Status
 
-> Five small, textbook structural-Verilog designs ship in [`samples/`](samples/) (adder, decoder, mux, traffic-light FSM, 3-stage pipeline). All are original public-domain designs written for this project — zero third-party IP. Pre-generated interactive DAG visualizations for each design live under [`outputs/`](outputs/). **Bring your own Verilog** too: any structural / gate-level `.v` works.
+> Sample designs live in [`samples/`](samples/) — five small textbook designs (adder, decoder, mux, traffic-light FSM, 3-stage pipeline) plus two **scale-demo** multipliers ([`array_mult8.v`](samples/array_mult8.v), [`array_mult16.v`](samples/array_mult16.v) — the 16×16 builds to **1278 nodes / 1985 edges**). All are original public-domain designs written for this project — zero third-party IP. Pre-generated interactive DAG visualizations live in [`outputs/`](outputs/). **Bring your own Verilog** too: any structural / gate-level `.v` works.
 >
 > Adding ISCAS-85 / OpenCores designs as additional samples is on the [roadmap](#roadmap).
 
@@ -198,12 +198,18 @@ python launchers/PRESENTATION_LAUNCHER.py
 | Advanced Debugger        | `streamlit run tools/final_debugger/advanced_debugger.py --server.port 8640` | http://localhost:8640 |
 | DAG Visualizer           | `streamlit run tools/dag_visualizer/dag_visualizer.py --server.port 8650` | http://localhost:8650 |
 
-Sample inputs: five small textbook designs ship in [`samples/`](samples/) — try `samples/adder4.v` (critical path), `samples/decoder2to4.v` (fanout), or `samples/fsm_traffic.v` (FSM detection). Pre-built interactive visualizations for each are in [`outputs/`](outputs/). Any other structural / gate-level Verilog `.v` works too.
+Sample inputs: seven textbook designs ship in [`samples/`](samples/) — try `samples/adder4.v` (critical path), `samples/decoder2to4.v` (fanout), `samples/fsm_traffic.v` (FSM detection), or **`samples/array_mult16.v`** (16×16 multiplier, ~1280 graph nodes — scale demo). Pre-built interactive visualizations for each are in [`outputs/`](outputs/). Any other structural / gate-level Verilog `.v` works too.
 
 ### Regenerate sample outputs
 
 ```powershell
 python launchers/generate_sample_outputs.py
+```
+
+### Generate a larger multiplier on demand
+
+```powershell
+python samples/generate_array_mult.py 24    # 24x24 -> ~3300 primitives
 ```
 
 ---

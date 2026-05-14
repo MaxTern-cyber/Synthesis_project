@@ -2,13 +2,15 @@
 
 Pre-generated interactive DAG visualizations for every design in [`../samples/`](../samples/).
 
-| Sample | Output |
-|--------|--------|
-| [`adder4.v`](../samples/adder4.v)             | [`adder4.html`](adder4.html)           |
-| [`decoder2to4.v`](../samples/decoder2to4.v)   | [`decoder2to4.html`](decoder2to4.html) |
-| [`mux4to1.v`](../samples/mux4to1.v)           | [`mux4to1.html`](mux4to1.html)         |
-| [`fsm_traffic.v`](../samples/fsm_traffic.v)   | [`fsm_traffic.html`](fsm_traffic.html) |
-| [`pipeline3.v`](../samples/pipeline3.v)       | [`pipeline3.html`](pipeline3.html)     |
+| Sample | Output | Scale |
+|--------|--------|-------|
+| [`adder4.v`](../samples/adder4.v)             | [`adder4.html`](adder4.html)           | 34 nodes / 37 edges |
+| [`decoder2to4.v`](../samples/decoder2to4.v)   | [`decoder2to4.html`](decoder2to4.html) | 15 nodes / 20 edges |
+| [`mux4to1.v`](../samples/mux4to1.v)           | [`mux4to1.html`](mux4to1.html)         | 20 nodes / 25 edges |
+| [`fsm_traffic.v`](../samples/fsm_traffic.v)   | [`fsm_traffic.html`](fsm_traffic.html) | 9 nodes / 10 edges  |
+| [`pipeline3.v`](../samples/pipeline3.v)       | [`pipeline3.html`](pipeline3.html)     | 12 nodes / 20 edges |
+| [`array_mult8.v`](../samples/array_mult8.v)   | [`array_mult8.html`](array_mult8.html) | **326 nodes / 489 edges** |
+| [`array_mult16.v`](../samples/array_mult16.v) | [`array_mult16.html`](array_mult16.html) | **1278 nodes / 1985 edges** |
 
 ## How these were generated
 
