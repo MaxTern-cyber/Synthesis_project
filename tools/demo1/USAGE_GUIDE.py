@@ -9,8 +9,9 @@ import os, sys
 # Anchor to repo root (this file lives at <repo>/tools/demo1/)
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-# Import the tool
-exec(open(r"import networkx as nx.py", encoding='utf-8').read().replace("if __name__", "if False"), globals())
+# Import the tool implementation from the sibling file
+_here = os.path.dirname(__file__)
+exec(open(os.path.join(_here, 'level1_final.py'), encoding='utf-8').read().replace("if __name__", "if False"), globals())
 
 print("="*70)
 print("QUICK START GUIDE - Enhanced Verilog DAG Tool")

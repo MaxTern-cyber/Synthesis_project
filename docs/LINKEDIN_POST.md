@@ -36,7 +36,7 @@
 
 ## Variant B — Builder hook
 
-> Spent the buildathon weekend asking a simple question:
+> Spent a weekend asking a simple question:
 >
 > **How much of a commercial netlist analyzer can you reproduce with NetworkX, PyVis, and Streamlit — running 100% locally, in a browser, with no licenses?**
 >

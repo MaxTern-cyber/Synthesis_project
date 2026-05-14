@@ -1,8 +1,8 @@
-# 🚀 Quick Start Guide - Enhanced Features
+# Quick Start Guide - Enhanced Features
 
-## 🎯 What's New?
+## What's New?
 
-Both demos have been enhanced with **timing-aware analysis** and **optimization suggestions** for your buildathon presentation!
+Both demos have been enhanced with **timing-aware analysis** and **optimization suggestions**.
 
 ---
 
@@ -105,7 +105,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-## 🎤 5-Minute Buildathon Pitch
+## 5-Minute Demo Pitch
 
 ### Opening (30 seconds):
 "Our tool performs **timing-aware netlist analysis** - not just connectivity, but actual delay estimation at the gate level. We've validated it on synthesized netlists in the 10K-gate range."
@@ -251,7 +251,7 @@ Both demos have been enhanced with **timing-aware analysis** and **optimization 
 
 ---
 
-**Good luck with your buildathon! You've got cutting-edge timing analysis at your fingertips! 🚀**
+**That's it. You've got cutting-edge timing analysis at your fingertips.**
 
 **Access URLs**:
 - Demo 2: http://localhost:8520

@@ -1,12 +1,12 @@
 """
-BUILDATHON TOOL LAUNCHER
-========================
+SYNTHESIS PROJECT TOOL LAUNCHER
+==============================
 Clean and simple launcher for all hardware debugging and analysis tools.
 
 Usage:
-    python launchers\TOOL_LAUNCHER.py           # Interactive menu
-    python launchers\TOOL_LAUNCHER.py --all     # Launch all tools
-    python launchers\TOOL_LAUNCHER.py --check   # Check system status
+    python launchers/TOOL_LAUNCHER.py           # Interactive menu
+    python launchers/TOOL_LAUNCHER.py --all     # Launch all tools
+    python launchers/TOOL_LAUNCHER.py --check   # Check system status
 """
 
 import sys
@@ -240,13 +240,13 @@ def show_help():
     
     print(f"{Colors.BOLD}Quick Commands:{Colors.END}\n")
     print("  Launch individual tool:")
-    print("    python launchers\TOOL_LAUNCHER.py")
+    print("    python launchers/TOOL_LAUNCHER.py")
     print()
     print("  Launch all tools:")
-    print("    python launchers\TOOL_LAUNCHER.py --all")
+    print("    python launchers/TOOL_LAUNCHER.py --all")
     print()
     print("  Check system:")
-    print("    python launchers\TOOL_LAUNCHER.py --check")
+    print("    python launchers/TOOL_LAUNCHER.py --check")
     print()
 
 def main():

@@ -28,7 +28,7 @@ The repo is a working prototype answering #1 today and a scaffold for #2 (`tools
 
 ## Status
 
-> Sample designs and demo media were temporarily removed. The codebase, algorithms, and architecture remain intact. **Bring your own Verilog** (any structural/gate-level `.v`) and the analyzer will load it.
+> Bring your own Verilog (any structural / gate-level `.v`) and the analyzer will load it. A small generic test design ships at [`tools/rtl_analyzer/sample_counter.v`](tools/rtl_analyzer/sample_counter.v).
 >
 > A refreshed demo using open-source benchmark designs (ISCAS-85, OpenCores) is on the [roadmap](#roadmap).
 

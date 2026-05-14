@@ -259,6 +259,7 @@ else:
 
 # If DAG is built, show visualization options
 if st.session_state.dag:
+    pass  # TODO: visualization options block (placeholder)
 
 # Sidebar
 with st.sidebar:

@@ -21,7 +21,7 @@
 
 #### Step 2: Install Dependencies
 ```bash
-cd Buildathon
+cd Synthesis_project
 pip install -r requirements.txt
 ```
 

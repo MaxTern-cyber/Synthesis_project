@@ -186,7 +186,7 @@ Decide where to insert registers:
 
 ---
 
-## 🎯 Buildathon Demo Script
+## 🎯 Demo Script
 
 ### Opening (15 seconds):
 "This new feature extracts the longest dependency chains from inputs to outputs - essential for understanding timing-critical paths."
@@ -278,7 +278,7 @@ Rank,Input,Output,Length,Delay (ns),Preview
 
 ## 🚀 Future Enhancements
 
-Potential additions post-buildathon:
+Potential future additions:
 1. **Path highlighting in DAG**: Visual path overlay
 2. **Comparison mode**: Before/after optimization
 3. **SDC integration**: Import timing constraints
