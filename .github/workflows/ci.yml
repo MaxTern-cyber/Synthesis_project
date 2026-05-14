@@ -37,7 +37,7 @@ jobs:
         run: python -m compileall -q launchers samples tests tools
 
       - name: Type-check with mypy
-        run: python -m mypy launchers samples tools/sta_lite tools/parallelism streamlit_app.py --ignore-missing-imports --no-strict-optional
+        run: python -m mypy launchers samples tools/sta_lite tools/parallelism tools/security streamlit_app.py --ignore-missing-imports --no-strict-optional
 
       - name: Run pytest
         run: python -m pytest tests/ -v

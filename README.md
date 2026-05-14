@@ -156,6 +156,22 @@ Measured on this repo's samples: `c17` is trivial (2.4x), `c432` is moderate (9.
 
 This is a **research-prototype** module; it identifies where GPU acceleration would be valuable, it does not perform GPU simulation itself.
 
+### 2d. Hardware-security audit -- 5 heuristic rules over the DAG
+
+[`tools/security`](tools/security) is a static-analysis pass that surfaces five well-known hardware-security and design-integrity anti-patterns. All rules run in linear time over the same DAG that powers the rest of the suite -- no separate IR, no separate parse.
+
+| Rule | What it catches | Severity | Algorithm |
+|---|---|---|---|
+| `COMB_LOOP` | Non-trivial SCC in the combinational sub-graph -- a ring oscillator / latch loop | HIGH | Tarjan SCC |
+| `RESET_GATING` | A `reset`/`rst` net reaches a register only *after* a combinational gate (data-dependent reset = fault-injection surface) | HIGH | Shortest-path reset->reg, count comb hops |
+| `ASYNC_RESET_NO_SYNC` | A reset input drives a register directly with no 2-FF synchronizer chain (metastability / glitch attack surface) | MEDIUM | Successor-register check on the target reg |
+| `DANGLING_LOGIC` | Combinational nodes with no forward path to any primary output or register (classic trojan hiding place) | LOW / MEDIUM | Ancestor-set complement; cone-size threshold |
+| `MULTI_DRIVER` | Net with > 1 driver (X-prop / glitch / contention) | HIGH | In-degree check on net nodes |
+
+Findings are sorted HIGH -> LOW with a concrete `suggestion:` field on each one. The ruleset is **heuristic** -- false positives are expected; the value is in surfacing candidates for human review, not in formal proof. Reset detection uses a conservative name pattern (`reset|rst|reset_n|rstn`); for production use you would replace this with a proper port-attribute lookup.
+
+Wired into the [live demo](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/) as Section 6 with severity-coloured metrics and a sortable findings table.
+
 ### 3. Combinational-loop detection -- Tarjan's SCC
 
 A combinational loop is a strongly connected component of size > 1 in the combinational sub-graph. Tarjan's algorithm finds all SCCs in $O(|V|+|E|)$. Each non-trivial SCC is reported with severity (CRITICAL / WARNING / INFO) based on cycle length and gate composition, with a suggestion of where to insert a register to break it.

@@ -6,6 +6,26 @@ The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 on a best-effort basis (research prototype).
 
+## [Unreleased]
+
+### Added
+
+- **Hardware-security audit** ([`tools/security/`](tools/security/)) --
+  5-rule heuristic static-analysis pass over the netlist DAG:
+  `COMB_LOOP` (Tarjan SCC), `RESET_GATING` (combinational gates on the
+  reset path), `ASYNC_RESET_NO_SYNC` (no 2-FF synchronizer), `DANGLING_LOGIC`
+  (cones with no observable sink -- a trojan hiding place), and
+  `MULTI_DRIVER` (net contention). Findings carry severity (HIGH / MEDIUM /
+  LOW), locus, description, and concrete suggested fix. Wired into the
+  Streamlit app as Section 6.
+- 16 new tests in `tests/test_security.py` covering every rule's positive
+  and negative cases. Total test count: **52** (was 36).
+- README section §2d documenting the ruleset, algorithm, and severity table.
+
+### Changed
+
+- CI mypy step now type-checks `tools/security` alongside the other modules.
+
 ## [0.1.0] - 2026-05-15
 
 First tagged release. Established the project as a research prototype for

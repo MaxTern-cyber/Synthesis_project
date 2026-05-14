@@ -69,6 +69,7 @@ with st.sidebar:
         "- **Tarjan SCC** for combinational-loop detection\n"
         "- **STA-lite** -- arrival / required / slack DP with kind-keyed delays\n"
         "- **Parallelism profile** -- levelization + Brent's-bound speedup (GL0AM-inspired)\n"
+        "- **Security audit** -- 5-rule heuristic ruleset (comb-loops, reset gating, async-reset sync, dangling logic, multi-driver)\n"
     )
     st.markdown("---")
     st.markdown(
@@ -290,9 +291,55 @@ if par.width_per_level:
 
 
 # ----------------------------------------------------------------------------
+# Hardware-security audit
+# ----------------------------------------------------------------------------
+from tools.security import Severity, audit as sec_audit  # noqa: E402
+
+st.subheader("6. Hardware-security audit")
+st.caption(
+    "Five heuristic rules over the DAG: combinational loops, reset gating, "
+    "async-reset-without-synchronizer, dangling logic (potential trojan), "
+    "and multi-driver nets. Static analysis only -- false positives expected; "
+    "surfaces candidates for human review."
+)
+
+sec_report = sec_audit(g)
+sec_counts = sec_report.by_severity
+
+s1, s2, s3, s4 = st.columns(4)
+s1.metric("Total findings", sec_report.total)
+s2.metric("HIGH", sec_counts[Severity.HIGH])
+s3.metric("MEDIUM", sec_counts[Severity.MEDIUM])
+s4.metric("LOW", sec_counts[Severity.LOW])
+
+if sec_report.total == 0:
+    st.success("Clean: no rule violations detected.")
+elif sec_counts[Severity.HIGH] > 0:
+    st.error(f"{sec_counts[Severity.HIGH]} HIGH-severity finding(s) -- review recommended.")
+else:
+    st.warning(f"{sec_report.total} finding(s) -- review recommended.")
+
+if sec_report.findings:
+    import pandas as _pd  # noqa: E402
+    df_sec = _pd.DataFrame(
+        [
+            {
+                "Severity": str(f.severity),
+                "Rule": f.rule_id,
+                "Locus": f.locus,
+                "Description": f.description,
+                "Suggested fix": f.suggestion,
+            }
+            for f in sec_report.findings
+        ]
+    )
+    st.dataframe(df_sec, use_container_width=True, hide_index=True)
+
+
+# ----------------------------------------------------------------------------
 # Visualization
 # ----------------------------------------------------------------------------
-st.subheader("6. Interactive DAG")
+st.subheader("7. Interactive DAG")
 
 max_nodes = st.slider(
     "Cap nodes shown (large graphs render slowly in the browser):",
