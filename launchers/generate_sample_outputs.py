@@ -19,6 +19,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 import networkx as nx
 from pyvis.network import Network
@@ -135,7 +136,7 @@ def build_graph(src: str) -> tuple[nx.DiGraph, dict]:
         modules[m.group(1)] = m.group(2)
 
     g = nx.DiGraph()
-    stats = {"modules": list(modules), "gates": 0, "regs": 0, "instances": 0}
+    stats: dict[str, Any] = {"modules": list(modules), "gates": 0, "regs": 0, "instances": 0}
 
     for mname, body in modules.items():
         inputs, outputs = parse_ports(body)

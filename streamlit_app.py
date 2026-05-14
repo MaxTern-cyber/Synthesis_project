@@ -129,7 +129,7 @@ st.write(
 )
 
 # Kind breakdown
-kinds = {}
+kinds: dict[str, int] = {}
 for _, data in g.nodes(data=True):
     k = data.get("kind", "unknown")
     kinds[k] = kinds.get(k, 0) + 1

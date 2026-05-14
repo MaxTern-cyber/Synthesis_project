@@ -11,8 +11,8 @@ import importlib.util
 
 # Ensure emoji / Unicode works on Windows cp1252 consoles
 try:
-    sys.stdout.reconfigure(encoding='utf-8')
-    sys.stderr.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding='utf-8')  # type: ignore[union-attr]
+    sys.stderr.reconfigure(encoding='utf-8')  # type: ignore[union-attr]
 except Exception:
     pass
 

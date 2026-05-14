@@ -27,10 +27,13 @@ jobs:
           # Tests only need the core graph + parsing libraries.
           # Avoid pulling Streamlit / Plotly / Matplotlib here -- their
           # transitive deps occasionally break the resolver on older minors.
-          pip install "networkx>=3.0" "pyvis>=0.3.1" pytest
+          pip install "networkx>=3.0" "pyvis>=0.3.1" pytest mypy
 
       - name: Byte-compile all Python sources
         run: python -m compileall -q launchers samples tests
+
+      - name: Type-check with mypy
+        run: python -m mypy launchers samples streamlit_app.py --ignore-missing-imports --no-strict-optional
 
       - name: Run pytest
         run: python -m pytest tests/ -v

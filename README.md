@@ -7,6 +7,7 @@
 [![CI](https://github.com/MaxTern-cyber/Synthesis_project/actions/workflows/ci.yml/badge.svg)](https://github.com/MaxTern-cyber/Synthesis_project/actions/workflows/ci.yml)
 [![Live Demo](https://img.shields.io/badge/live%20demo-streamlit%20cloud-FF4B4B.svg)](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![Type-checked: mypy](https://img.shields.io/badge/type--checked-mypy-2A6DB2.svg)](http://mypy-lang.org/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.53%2B-FF4B4B.svg)](https://streamlit.io)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Topic: EDA](https://img.shields.io/badge/topic-EDA-blueviolet.svg)](#)

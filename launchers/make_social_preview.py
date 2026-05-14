@@ -85,7 +85,7 @@ def _load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     for path in candidates:
         if Path(path).exists():
             return ImageFont.truetype(path, size=size)
-    return ImageFont.load_default()
+    return ImageFont.load_default()  # type: ignore[return-value]
 
 
 def main() -> int:
