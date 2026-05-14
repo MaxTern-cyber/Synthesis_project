@@ -212,6 +212,22 @@ pip install -r requirements.txt
 python launchers/PRESENTATION_LAUNCHER.py
 ```
 
+### Install as a package (editable)
+
+Prefer a proper Python package over loose scripts? The project ships a
+PEP-621 [`pyproject.toml`](pyproject.toml), so you can install it in
+editable mode and get console entry points on your `PATH`:
+
+```powershell
+pip install -e .                 # core install
+pip install -e ".[dev,viz,export]"  # everything (tests, plots, Excel export)
+
+# Installed console scripts:
+synthesis-generate-outputs       # rebuild outputs/ for every sample
+synthesis-generate-mult 24       # generate samples/array_mult24.v
+synthesis-fix-unicode            # normalize stray unicode to ASCII
+```
+
 ### Launch a single tool
 
 | Tool | Command | URL |

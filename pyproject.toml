@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthesis-project"
+version = "0.1.0"
+description = "AI-assisted Verilog netlist analysis: parser -> NetworkX DAG -> graph algorithms + interactive visualization."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Mallikarjuna A L", email = "mallikarjunaal.ec21@gmail.com" },
+]
+keywords = [
+    "eda",
+    "verilog",
+    "netlist-analysis",
+    "graph-algorithms",
+    "networkx",
+    "streamlit",
+    "static-timing-analysis",
+    "hardware-verification",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "networkx>=3.0",
+    "pyvis>=0.3.1",
+    "streamlit>=1.53.0",
+    "plotly>=5.14.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+viz = [
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+]
+export = [
+    "openpyxl>=3.1.0",
+    "xlsxwriter>=3.1.0",
+]
+dev = [
+    "pytest>=7.3.0",
+    "imageio-ffmpeg>=0.4.9",
+    "pillow>=10.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/MaxTern-cyber/Synthesis_project"
+Repository = "https://github.com/MaxTern-cyber/Synthesis_project"
+Issues = "https://github.com/MaxTern-cyber/Synthesis_project/issues"
+"Live demo" = "https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/"
+
+[project.scripts]
+# Console entry points -- installed as plain commands by `pip install -e .`
+synthesis-generate-outputs = "launchers.generate_sample_outputs:main"
+synthesis-generate-mult = "samples.generate_array_mult:main_cli"
+synthesis-fix-unicode = "launchers.fix_unicode:main"
+
+# ----------------------------------------------------------------------------
+# Setuptools package discovery
+# ----------------------------------------------------------------------------
+[tool.setuptools]
+# Treat top-level folders as importable packages where they contain Python.
+# We keep this list explicit (rather than auto-find) because the repo also
+# carries non-package folders like docs/, outputs/, samples/, etc.
+packages = ["launchers", "samples"]
+
+[tool.setuptools.package-data]
+samples = ["*.v"]
+
+# ----------------------------------------------------------------------------
+# Pytest
+# ----------------------------------------------------------------------------
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
