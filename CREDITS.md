@@ -28,6 +28,8 @@ along with the rest of this repo under [MIT](LICENSE).
 | [`samples/generate_array_mult.py`](samples/generate_array_mult.py) | Original | Parameterized generator for N x N Braun multipliers |
 | [`samples/c17.v`](samples/c17.v) | Re-typed from public-domain spec | ISCAS-85 benchmark (Brglez & Fujiwara, ISCAS 1985); topology is public-domain prior art |
 | [`samples/c432.v`](samples/c432.v) | [`jpsety/verilog_benchmark_circuits`](https://github.com/jpsety/verilog_benchmark_circuits) (public-domain ISCAS-85 collection) | ISCAS-85 27-channel interrupt controller (Brglez & Fujiwara, ISCAS 1985); 160 gates |
+| [`samples/c1908.v`](samples/c1908.v) | [`jpsety/verilog_benchmark_circuits`](https://github.com/jpsety/verilog_benchmark_circuits) (public-domain ISCAS-85 collection) | ISCAS-85 16-bit single-error-correcting circuit (Brglez & Fujiwara, ISCAS 1985); 479 gates |
+| [`samples/c6288.v`](samples/c6288.v) | [`jpsety/verilog_benchmark_circuits`](https://github.com/jpsety/verilog_benchmark_circuits) (public-domain ISCAS-85 collection) | ISCAS-85 16x16 Braun array multiplier (Brglez & Fujiwara, ISCAS 1985); 2353 gates |
 
 The Braun array multiplier is a standard textbook structure first described
 in: **E. L. Braun, "Digital Computer Design," Academic Press, 1963.**

@@ -10,6 +10,18 @@ on a best-effort basis (research prototype).
 
 ### Added
 
+- **ISCAS-85 benchmarks expanded** -- added [`samples/c1908.v`](samples/c1908.v)
+  (479 gates, 16-bit single-error-correcting circuit) and
+  [`samples/c6288.v`](samples/c6288.v) (2353 gates, 16x16 Braun array
+  multiplier) from the public-domain `jpsety/verilog_benchmark_circuits`
+  collection. `c6288` becomes the new headline benchmark at
+  **4738 nodes / 7043 edges / 19.34x theoretical parallel speedup /
+  256 gates per widest level** -- comfortably in the GL0AM regime.
+  Provenance recorded in [`CREDITS.md`](CREDITS.md).
+- 6 new sample-driven test parameterizations (parser, STA-lite, parallelism)
+  exercising `c1908` and `c6288`. Total test count: **58** (was 52).
+- README §Benchmarks and §Parallelism profile tables refreshed with both
+  new circuits.
 - **Hardware-security audit** ([`tools/security/`](tools/security/)) --
   5-rule heuristic static-analysis pass over the netlist DAG:
   `COMB_LOOP` (Tarjan SCC), `RESET_GATING` (combinational gates on the
@@ -19,7 +31,7 @@ on a best-effort basis (research prototype).
   LOW), locus, description, and concrete suggested fix. Wired into the
   Streamlit app as Section 6.
 - 16 new tests in `tests/test_security.py` covering every rule's positive
-  and negative cases. Total test count: **52** (was 36).
+  and negative cases.
 - README section §2d documenting the ruleset, algorithm, and severity table.
 
 ### Changed

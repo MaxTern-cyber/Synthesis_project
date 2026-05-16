@@ -152,7 +152,7 @@ The approach is inspired by [NVIDIA Research's GL0AM](https://github.com/NVlabs/
 4. **Partition count** -- weakly-connected components in the register-cut graph. Each partition is an independent combinational cone; more partitions => easier GPU load-balancing.
 5. **Verdict** -- coarse "is this design worth GPU-accelerating?" tag (trivial / serial-bound / moderate / GL0AM-regime).
 
-Measured on this repo's samples: `c17` is trivial (2.4x), `c432` is moderate (9.2x, 36 gates per parallel step), and **`array_mult16` lands in the GL0AM-regime at 14.0x with 260 gates per parallel step at its widest level** -- exactly the size class where GPU acceleration starts paying off.
+Measured on this repo's samples: `c17` is trivial (2.4x), `c432` is moderate (9.2x, 36 gates per parallel step), `c1908` lands in the GL0AM regime (**14.4x**, 38 gates wide), and **`c6288` (ISCAS-85 16x16 multiplier) tops the chart at 19.3x with 256 gates per parallel step** -- exactly the size class where GPU acceleration starts paying off.
 
 This is a **research-prototype** module; it identifies where GPU acceleration would be valuable, it does not perform GPU simulation itself.
 
@@ -213,9 +213,11 @@ End-to-end results on the bundled sample designs (single-thread, Python 3.12, no
 | `pipeline3.v` | textbook | 0+6 reg | 12 | 20 | 1 | +1.000 ns (MET) |
 | `fsm_traffic.v` | textbook | 0+2 reg | 9 | 10 | 1 | +1.000 ns (MET) |
 | `c432.v` | **ISCAS-85** | 160 | 378 | 518 | 41 | **-1.210 ns** at `N421` |
+| `c1908.v` | **ISCAS-85** | 479 | 991 | 1465 | 69 | **-2.000 ns** (16-bit SEC) |
+| `c6288.v` | **ISCAS-85** | 2353 | **4738** | **7043** | **245** | **-17.070 ns** (16x16 multiplier) |
 | `array_mult8.v` | generated | 320 | 326 | 489 | 43 | **-5.120 ns** at `s_7_7` |
 | `array_mult16.v` | generated | 1450 | **1278** | **1985** | 91 | **-12.320 ns** at `s_15_15` |
-| **Total CI runtime** | | | | | | **< 5 s** for full test suite (36 tests) |
+| **Total CI runtime** | | | | | | **< 5 s** for full test suite |
 
 ### Parallelism profile (GL0AM-inspired)
 
@@ -228,6 +230,8 @@ Same DAG, different question -- "what's the upper bound on parallel-simulation s
 | `mux4to1.v` | 20 | 7 | 6 | 2.86x | trivial |
 | `adder4.v` | 34 | 9 | 12 | 3.78x | trivial |
 | `c432.v` (ISCAS-85) | 378 | 41 | 36 | **9.22x** | moderate - some speedup possible |
+| `c1908.v` (ISCAS-85) | 991 | 69 | 38 | **14.36x** | **excellent - good GPU candidate (GL0AM regime)** |
+| `c6288.v` (ISCAS-85) | **4738** | 245 | **256** | **19.34x** | **excellent - good GPU candidate (GL0AM regime)** |
 | `array_mult8.v` | 326 | 43 | 68 | 7.58x | moderate |
 | `array_mult16.v` | **1278** | 91 | **260** | **14.04x** | **excellent - good GPU candidate (GL0AM regime)** |
 
@@ -379,7 +383,7 @@ This is a research prototype. Calling out what it is **not** is part of taking i
 - [x] **CI** -- pytest suite (24 tests) + GitHub Actions + mypy type-checking on every push
 - [x] **Streamlit Cloud deployment** -- [public live demo](https://synthesisproject-5ax4oq8wquyjmdgp6z9rvy.streamlit.app/)
 - [x] **Delay-aware STA-lite** -- arrival / required / slack DP with kind-keyed delays ([`tools/sta_lite/`](tools/sta_lite/))
-- [x] **ISCAS-85 benchmarks** -- `c17`, `c432` (160 gates) as canonical academic samples
+- [x] **ISCAS-85 benchmarks** -- `c17`, `c432` (160 gates), `c1908` (479 gates, 16-bit SEC), `c6288` (2353 gates, 16x16 multiplier) as canonical academic samples
 - [x] **PEP-621 packaging** -- `pip install -e .` with console entry points
 
 **Open ([see issues](https://github.com/MaxTern-cyber/Synthesis_project/issues)):**

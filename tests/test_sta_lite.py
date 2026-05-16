@@ -102,6 +102,8 @@ def test_top_n_slowest_endpoints_sorted() -> None:
     ("adder4.v",      True),   # 4-bit ripple-carry under 1ns -> tight
     ("array_mult8.v", True),   # 8x8 multiplier under 1ns -> violated
     ("c432.v",        True),   # ISCAS-85 under 1ns -> violated
+    ("c1908.v",       True),   # ISCAS-85 16-bit SEC under 1ns -> violated
+    ("c6288.v",       True),   # ISCAS-85 16x16 multiplier under 1ns -> violated
 ])
 def test_sample_timing(fname: str, expect_violation: bool) -> None:
     src = (SAMPLES / fname).read_text(encoding="utf-8")

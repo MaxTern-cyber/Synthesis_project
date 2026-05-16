@@ -134,6 +134,8 @@ def test_verdict_categorizes_correctly() -> None:
 @pytest.mark.parametrize("fname,min_speedup,min_nodes", [
     ("c17.v",          2.0,    15),
     ("c432.v",         5.0,   300),
+    ("c1908.v",       10.0,   800),
+    ("c6288.v",       15.0,  4000),
     ("array_mult8.v",  5.0,   300),
     ("array_mult16.v", 10.0, 1000),
 ])

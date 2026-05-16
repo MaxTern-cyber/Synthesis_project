@@ -25,6 +25,8 @@ SAMPLES = REPO_ROOT / "samples"
 CASES = [
     ("c17.v",            10, 10, {"nand"}),
     ("c432.v",          300, 400, {"nand", "not"}),
+    ("c1908.v",         800, 1200, {"nand", "and", "not"}),
+    ("c6288.v",        4000, 6000, {"and", "nor", "not"}),
     ("adder4.v",         10, 10, {"inst"}),
     ("decoder2to4.v",   10, 10, {"and", "not"}),
     ("mux4to1.v",       10, 10, {"and", "or", "not"}),
